@@ -3,10 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Observers\UserObservers\UserObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+#[ObservedBy(UserObserver::class)]
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -21,6 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'can_login',
+        'user_id',
     ];
 
     /**
@@ -31,6 +38,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'user_id',
     ];
 
     /**
@@ -42,7 +50,60 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'name'              => 'string',
+            'email'             => 'string',
+            'is_admin'          => 'boolean',
+            'can_login'         => 'boolean',
+            'user_id'           => 'integer',
         ];
+    }
+
+    public function hasPermission(string $action): bool
+    {
+        if ($this->policies()->count() == 0)
+        {
+            return false;
+        }
+        $hasAnyPermission = $this->policies()->whereHas('permissions')->exists();
+        if (!$hasAnyPermission)
+        {
+            return false;
+        }
+        return $this
+        ->policies()
+        ->whereHas(
+            'permissions',
+            function ($query) use ($action)
+            {
+                $query->where('action', $action);
+            },
+        )
+        ->exists();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function hasUsers()
+    {
+        return $this->hasMany(User::class, 'user_id');
+    }
+
+    public function policies()
+    {
+        return $this->belongsToMany(Policy::class, 'users_policies');
+    }
+
+    public function hasPolicies()
+    {
+        return $this->hasMany(Policy::class, 'user_id');
+    }
+
+    public function hasPermissions()
+    {
+        return $this->hasMany(Permission::class, 'user_id');
     }
 }
