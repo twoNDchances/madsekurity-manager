@@ -66,7 +66,7 @@ class ManagerPanelProvider extends PanelProvider
             Authenticate::class,
         ])
         ->favicon(asset('images/logos/favicon.png'))
-        ->profile()
-        ->sidebarCollapsibleOnDesktop();
+        ->sidebarCollapsibleOnDesktop()
+        ->databaseNotifications();
     }
 }

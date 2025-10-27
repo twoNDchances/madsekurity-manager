@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Services\IdentificationService;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -47,8 +48,12 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, User $model): bool
+    public function update(User $user, User $model)
     {
+        if (!$user->is_important && $model->is_important)
+        {
+            return false;
+        }
         return $this->getResource($user, 'update');
     }
 
@@ -65,6 +70,10 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
+        if (!$user->is_important && $model->is_important || $user->id == $model->id)
+        {
+            return false;
+        }
         return $this->getResource($user, 'delete');
     }
 

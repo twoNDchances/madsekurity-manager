@@ -3,6 +3,8 @@
 namespace App\Filament\Components\Forms\UserForm;
 
 use App\Filament\Components\Generals\GeneralForm;
+use App\Filament\Resources\Policies\Schemas\PolicyForm;
+use App\Services\IdentificationService;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Icons\Heroicon;
 
@@ -33,7 +35,7 @@ trait UserForm
         ->suffixActions(self::passwordAction())
         ->minLength(4)
         ->revealable()
-        ->required()
+        ->required(fn ($livewire) => $livewire instanceof CreateRecord)
         ->password();
     }
 
@@ -45,13 +47,26 @@ trait UserForm
         ->required();
     }
 
-    public static function isAdmin()
+    public static function isImportant()
     {
-        $condition = fn ($livewire) => $livewire instanceof CreateRecord;
-        return self::toggle('is_admin', 'Is Admin')
+        $condition = fn ($livewire) => $livewire instanceof CreateRecord || IdentificationService::isImportant();
+        return self::toggle('is_important', 'Is Important')
         ->helperText('Full of control the system.')
         ->required($condition)
         ->visible($condition)
         ->default(false);
+    }
+
+    public static function policies($create = true)
+    {
+        $field = self::select('policies')
+        ->relationship('policies', 'name')
+        ->multiple();
+
+        return match ($create)
+        {
+            true  => $field->createOptionForm(PolicyForm::main(false, false)),
+            false => $field,
+        };
     }
 }

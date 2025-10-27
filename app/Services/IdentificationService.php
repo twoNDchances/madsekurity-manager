@@ -17,9 +17,9 @@ class IdentificationService
         return self::getUser()?->id;
     }
 
-    public static function isAdmin()
+    public static function isImportant()
     {
-        return self::getUser()?->is_admin ?? false;
+        return self::getUser()?->is_important ?? false;
     }
 
     public static function canLogin()
@@ -33,7 +33,7 @@ class IdentificationService
         {
             return false;
         }
-        if ($user->is_admin || $user->hasPermission("$resource.all"))
+        if ($user->is_important || $user->hasPermission("$resource.all"))
         {
             return true;
         }

@@ -161,7 +161,7 @@ class {$modelName}Policy
 }
 
 PHP;
-        File::ensureDirectoryExists(App::path('Policies'));
+        File::ensureDirectoryExists(File::dirname($path));
         File::put($path, $content);
     }
 }

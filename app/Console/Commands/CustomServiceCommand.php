@@ -47,7 +47,7 @@ class $name
 }
 
 PHP;
-        File::ensureDirectoryExists(App::path('Services'));
+        File::ensureDirectoryExists(File::dirname($path));
         File::put($path, $content);
     }
 }

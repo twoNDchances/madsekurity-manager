@@ -4,6 +4,7 @@ namespace App\Observers\PolicyObservers;
 
 use App\Models\Policy;
 use App\Services\IdentificationService;
+use Illuminate\Support\Str;
 
 trait BeforeObserver
 {
@@ -12,7 +13,7 @@ trait BeforeObserver
      */
     public function saving(Policy $policy): void
     {
-        //
+        $policy->name = Str::slug($policy->name);
     }
 
     /**

@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Policies\Tables;
 
-use App\Filament\Components\Tables\UserTable\UserTable;
+use App\Filament\Components\Tables\PolicyTable\PolicyTable;
 use Filament\Tables\Table;
 
-class UsersTable
+class PoliciesTable
 {
-    use UserTable;
+    use PolicyTable;
 
     public static function configure(Table $table): Table
     {
         return $table
         ->columns([
-            self::email(),
-            self::isVerified(),
-            self::canLogin(),
-            self::policies(),
+            self::name(),
+            self::users(),
+            self::permissions(),
             self::owner(),
         ])
         ->filters([
@@ -26,7 +25,7 @@ class UsersTable
             self::actionGroup(),
         ])
         ->toolbarActions([
-            self::bulkActionGroup(false, [self::deleteBulkAction()]),
+            self::bulkActionGroup(),
         ]);
     }
 }

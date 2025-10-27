@@ -52,11 +52,11 @@ class CustomComponentCommand extends Command
     private $pathAction = "Filament/Components/Actions";
 
     /**
-     * Namespace
+     * Namespace of Generals
      * 
      * @var string
      */
-    private $namespace = 'App\Filament\Components';
+    private $namespaceGeneral = 'App\Filament\Components\Generals';
 
     /**
      * Namespace of Forms
@@ -175,7 +175,7 @@ class CustomComponentCommand extends Command
 
 namespace {$this->namespaceForm}\\{$name}Form;
 
-use {$this->namespace}\Generals\GeneralForm;
+use {$this->namespaceGeneral}\GeneralForm;
 
 trait {$name}Form
 {
@@ -191,7 +191,7 @@ PHP,
 
 namespace {$this->namespaceForm}\\{$name}Form;
 
-use {$this->namespace}\Generals\GeneralAction;
+use {$this->namespaceGeneral}\GeneralAction;
 
 trait {$name}Action
 {
@@ -213,8 +213,12 @@ PHP,
 
 namespace {$this->namespacePreparation}\\{$name}Preparation;
 
+use App\Filament\Components\Generals\GeneralPreparation;
+
 trait CreatePreparation
 {
+    use GeneralPreparation;
+
     protected function mutateFormDataBeforeCreate(array \$data): array
     {
         return \$data;
@@ -227,8 +231,12 @@ PHP,
 
 namespace {$this->namespacePreparation}\\{$name}Preparation;
 
+use App\Filament\Components\Generals\GeneralPreparation;
+
 trait EditPreparation
 {
+    use GeneralPreparation;
+
     protected function mutateFormDataBeforeFill(array \$data): array
     {
         return \$data;
@@ -252,7 +260,7 @@ PHP,
 
 namespace {$this->namespaceTable}\\{$name}Table;
 
-use {$this->namespace}\Generals\GeneralTable;
+use {$this->namespaceGeneral}\GeneralTable;
 
 trait {$name}Table
 {
@@ -268,7 +276,7 @@ PHP,
 
 namespace {$this->namespaceTable}\\{$name}Table;
 
-use {$this->namespace}\Generals\GeneralAction;
+use {$this->namespaceGeneral}\GeneralAction;
 
 trait {$name}Action
 {
@@ -290,7 +298,7 @@ PHP,
 
 namespace {$this->namespaceAction};
 
-use {$this->namespace}\Generals\GeneralAction;
+use {$this->namespaceGeneral}\GeneralAction;
 
 trait {$name}Action
 {

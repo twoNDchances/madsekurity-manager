@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Observers\UserObservers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,7 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin',
+        'is_important',
         'can_login',
         'user_id',
     ];
@@ -53,7 +52,7 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'name'              => 'string',
             'email'             => 'string',
-            'is_admin'          => 'boolean',
+            'is_important'      => 'boolean',
             'can_login'         => 'boolean',
             'user_id'           => 'integer',
         ];

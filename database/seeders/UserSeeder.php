@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'name'              => Env::get('MANAGER_USER_NAME', 'root'),
                 'email_verified_at' => Carbon::now(),
                 'password'          => Hash::make(Env::get('MANAGER_USER_PASS', 'root')),
-                'is_admin'          => true,
+                'is_important'      => true,
                 'can_login'         => true,
             ],
         );

@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Permissions\Tables;
 
-use App\Filament\Components\Tables\UserTable\UserTable;
+use App\Filament\Components\Tables\PermissionTable\PermissionTable;
 use Filament\Tables\Table;
 
-class UsersTable
+class PermissionsTable
 {
-    use UserTable;
+    use PermissionTable;
 
     public static function configure(Table $table): Table
     {
         return $table
         ->columns([
-            self::email(),
-            self::isVerified(),
-            self::canLogin(),
-            self::policies(),
+            self::name(),
+            self::type('resource'),
+            self::type('action'),
             self::owner(),
         ])
         ->filters([
@@ -26,7 +25,7 @@ class UsersTable
             self::actionGroup(),
         ])
         ->toolbarActions([
-            self::bulkActionGroup(false, [self::deleteBulkAction()]),
+            self::bulkActionGroup(),
         ]);
     }
 }
