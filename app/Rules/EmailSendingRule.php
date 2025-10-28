@@ -7,7 +7,6 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class EmailSendingRule implements ValidationRule
 {

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('variables', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique()->index();
+            $table->string('key')->index();
             $table->longText('value');
-            $table->string('name')->nullable();
+            $table->boolean('is_secret')->default(false);
             $table->longText('description')->nullable();
-            $table->foreignId('configuration_id')->nullable()->index()->constrained('configurations')->nullOnDelete();
+            $table->foreignId('setting_id')->nullable()->index()->constrained('settings')->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('variables');
     }
 };

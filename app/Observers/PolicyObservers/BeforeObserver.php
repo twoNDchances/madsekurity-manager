@@ -13,7 +13,7 @@ trait BeforeObserver
      */
     public function saving(Policy $policy): void
     {
-        //
+        $policy->name = Str::slug($policy->name);
     }
 
     /**

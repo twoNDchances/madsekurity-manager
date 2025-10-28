@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     protected $fillable = [
-        'key',
-        'value',
         'name',
         'description',
         'user_id',
@@ -24,8 +22,6 @@ class Setting extends Model
     protected function casts(): array
     {
         return [
-            'key'         => 'string',
-            'value'       => 'string',
             'name'        => 'string',
             'description' => 'string',
             'user_id'     => 'integer',
@@ -37,8 +33,8 @@ class Setting extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function configuration()
+    public function hasVariables()
     {
-        return $this->belongsTo(Configuration::class, 'configuration_id');
+        return $this->hasMany(Variable::class, 'setting_id');
     }
 }

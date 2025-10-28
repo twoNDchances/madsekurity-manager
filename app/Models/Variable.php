@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use App\Observers\PolicyObservers\PolicyObserver;
+use App\Observers\VariableObservers\VariableObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
-#[ObservedBy(PolicyObserver::class)]
-class Policy extends Model
+#[ObservedBy(VariableObserver::class)]
+class Variable extends Model
 {
     protected $fillable = [
-        'name',
+        'key',
+        'value',
         'description',
+        'setting_id',
         'user_id',
     ];
 
@@ -22,8 +24,10 @@ class Policy extends Model
     protected function casts(): array
     {
         return [
-            'name'        => 'string',
+            'key'         => 'string',
+            'value'       => 'string',
             'description' => 'string',
+            'setting_id'  => 'integer',
             'user_id'     => 'integer',
         ];
     }
@@ -33,13 +37,8 @@ class Policy extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function users()
+    public function setting()
     {
-        return $this->belongsToMany(User::class, 'users_policies');
-    }
-
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, 'policies_permissions');
+        return $this->belongsTo(Setting::class, 'setting_id');
     }
 }

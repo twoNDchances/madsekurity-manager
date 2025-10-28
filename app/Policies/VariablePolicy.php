@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Configuration;
 use App\Models\User;
+use App\Models\Variable;
 use App\Services\IdentificationService;
 
-class ConfigurationPolicy
+class VariablePolicy
 {
     private function getResource(User $user, string $action)
     {
-        return IdentificationService::can($user, 'configuration', $action);
+        return IdentificationService::can($user, 'variable', $action);
     }
 
     /**
@@ -32,7 +32,7 @@ class ConfigurationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Configuration $configuration): bool
+    public function view(User $user, Variable $variable): bool
     {
         return $this->getResource($user, 'view');
     }
@@ -48,7 +48,7 @@ class ConfigurationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Configuration $configuration): bool
+    public function update(User $user, Variable $variable): bool
     {
         return $this->getResource($user, 'update');
     }
@@ -64,7 +64,7 @@ class ConfigurationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Configuration $configuration): bool
+    public function delete(User $user, Variable $variable): bool
     {
         return $this->getResource($user, 'delete');
     }
@@ -72,7 +72,7 @@ class ConfigurationPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Configuration $configuration): bool
+    public function restore(User $user, Variable $variable): bool
     {
         return false;
     }
@@ -80,7 +80,7 @@ class ConfigurationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Configuration $configuration): bool
+    public function forceDelete(User $user, Variable $variable): bool
     {
         return false;
     }

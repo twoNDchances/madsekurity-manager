@@ -4,6 +4,7 @@ namespace App\Observers\SettingObservers;
 
 use App\Models\Setting;
 use App\Services\IdentificationService;
+use Illuminate\Support\Str;
 
 trait BeforeObserver
 {
@@ -12,7 +13,7 @@ trait BeforeObserver
      */
     public function saving(Setting $setting): void
     {
-        //
+        $setting->name = Str::slug($setting->name);
     }
 
     /**
