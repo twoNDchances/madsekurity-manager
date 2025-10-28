@@ -5,6 +5,7 @@ namespace App\Filament\Components\Forms\PolicyForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Permissions\Schemas\PermissionForm;
 use App\Filament\Resources\Users\Schemas\UserForm;
+use App\Rules\NameDashingRule;
 
 trait PolicyForm
 {
@@ -14,8 +15,8 @@ trait PolicyForm
     {
         return self::textInput('name', placeholder: 'Policy Name')
         ->helperText('Simple name with kebab case about this Policy.')
+        ->rule(new NameDashingRule())
         ->unique(ignoreRecord: true)
-        ->alphaDash()
         ->required();
     }
 

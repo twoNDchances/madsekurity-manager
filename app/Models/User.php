@@ -109,4 +109,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Permission::class, 'user_id');
     }
+
+    public function hasConfigurations()
+    {
+        return $this->hasMany(Configuration::class, 'user_id');
+    }
+
+    public function hasSettings()
+    {
+        return $this->hasMany(Setting::class, 'user_id');
+    }
 }
