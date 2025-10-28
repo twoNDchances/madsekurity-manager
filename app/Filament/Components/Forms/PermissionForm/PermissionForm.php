@@ -15,7 +15,6 @@ trait PermissionForm
         return self::textInput('name', placeholder: 'Permission Name')
         ->helperText('Simple name about this Permission.')
         ->unique(ignoreRecord: true)
-        ->alphaDash()
         ->required();
     }
 
@@ -35,6 +34,7 @@ trait PermissionForm
     public static function policies($create = true)
     {
         $field = self::select('policies')
+        ->helperText('Select multiple Policies for Permission Definition.')
         ->relationship('policies', 'name')
         ->multiple();
         

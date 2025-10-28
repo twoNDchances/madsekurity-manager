@@ -39,4 +39,22 @@ trait GeneralTable
         ->listWithLineBreaks()
         ->expandableLimitedList();
     }
+
+    public static function datetimeColumn(string $name, $label = null)
+    {
+        return self::textColumn($name, $label)
+        ->dateTime();
+    }
+
+    public static function createdAt()
+    {
+        return self::datetimeColumn('created_at', 'Created At')
+        ->toggledHiddenByDefault();
+    }
+
+    public static function updatedAt()
+    {
+        return self::datetimeColumn('updated_at', 'Updated At')
+        ->toggledHiddenByDefault();
+    }
 }

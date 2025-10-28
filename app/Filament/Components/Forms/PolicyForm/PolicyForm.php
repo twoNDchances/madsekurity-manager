@@ -5,7 +5,6 @@ namespace App\Filament\Components\Forms\PolicyForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Permissions\Schemas\PermissionForm;
 use App\Filament\Resources\Users\Schemas\UserForm;
-use App\Services\IdentificationService;
 
 trait PolicyForm
 {
@@ -28,6 +27,7 @@ trait PolicyForm
     public static function users($create = true)
     {
         $field = self::select('users')
+        ->helperText('Select multiple Users for Policy Definition.')
         ->relationship('users', 'email')
         ->multiple();
 
@@ -41,6 +41,7 @@ trait PolicyForm
     public static function permissions($create = true)
     {
         $field = self::select('permissions')
+        ->helperText('Select multiple Permissions for Policy Definition.')
         ->relationship('permissions', 'name')
         ->multiple();
 

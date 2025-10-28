@@ -17,6 +17,8 @@ class PoliciesTable
             self::users(),
             self::permissions(),
             self::owner(),
+            self::createdAt(),
+            self::updatedAt(),
         ])
         ->filters([
             //

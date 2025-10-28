@@ -7,7 +7,7 @@ use Filament\Notifications\Notification;
 
 class NotificationService
 {
-    private static function getBackbone($status, $title, $body = null)
+    private static function build($status, $title, $body = null)
     {
         $notification = Notification::make()->title($title)->body($body);
         $notification = match ($status)
@@ -15,32 +15,32 @@ class NotificationService
             'success' => $notification->success(),
             'failure' => $notification->danger(),
             'warning' => $notification->warning(),
-            default => $notification->info(),
+            default   => $notification->info(),
         };
         return $notification;
     }
 
     public static function notify($status, $title, $body = null)
     {
-        return self::getBackbone($status, $title, $body)->send();
+        return self::build($status, $title, $body)->send();
     }
 
     public static function announce($status, $title, $body = null, $all = false, $immediately = false)
     {
-        $backbone = self::getBackbone($status, $title, $body);
+        $builder = self::build($status, $title, $body);
         if ($all)
         {
             $users = User::all();
             foreach ($users as $user)
             {
-                $backbone->sendToDatabase($user, $immediately);
+                $builder->sendToDatabase($user, $immediately);
             }
         }
         else
         {
             $user = IdentificationService::getUser();
-            $backbone->sendToDatabase($user, $immediately);
+            $builder->sendToDatabase($user, $immediately);
         }
-        return $backbone;
+        return $builder;
     }
 }

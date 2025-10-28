@@ -26,6 +26,8 @@ class User extends Authenticatable
         'password',
         'is_important',
         'can_login',
+        'email_verified_at',
+        'token',
         'user_id',
     ];
 
@@ -38,6 +40,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'user_id',
+        'token',
     ];
 
     /**
@@ -54,6 +57,7 @@ class User extends Authenticatable
             'email'             => 'string',
             'is_important'      => 'boolean',
             'can_login'         => 'boolean',
+            'token'             => 'string',
             'user_id'           => 'integer',
         ];
     }

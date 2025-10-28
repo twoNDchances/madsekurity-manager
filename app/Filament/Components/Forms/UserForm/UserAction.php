@@ -21,11 +21,18 @@ trait UserAction
         );
     }
 
-    public static function passwordAction()
+    public static function copyPassword()
     {
-        return [
-            self::generatePassword(),
-            CopyAction::make(),
-        ];
+        return CopyAction::make();
+    }
+
+    protected static function generateToken()
+    {
+        return self::action(
+            'generate_token',
+            'Generate Token',
+            Heroicon::OutlinedArrowPath,
+            fn ($set) => $set('token', (string) Str::uuid()),
+        );
     }
 }

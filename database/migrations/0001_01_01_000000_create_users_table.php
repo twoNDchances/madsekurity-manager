@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_important')->default(false);
             $table->boolean('can_login')->default(true);
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
+            $table->string('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

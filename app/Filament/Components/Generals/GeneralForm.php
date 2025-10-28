@@ -52,4 +52,17 @@ trait GeneralForm
         ->options($colorsAndOptions['options'])
         ->inline();
     }
+
+    public static function relationshipSelect(string $name, $attribute, $form, $create = true, $multiple = true, $label = null)
+    {
+        $field = self::select($name, $label)
+        ->relationship($name, $attribute)
+        ->multiple($multiple);
+
+        return match ($create)
+        {
+            true  => $field->createOptionForm($form),
+            false => $field,
+        };
+    }
 }

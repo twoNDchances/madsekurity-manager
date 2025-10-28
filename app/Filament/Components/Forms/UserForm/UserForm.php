@@ -4,6 +4,7 @@ namespace App\Filament\Components\Forms\UserForm;
 
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Policies\Schemas\PolicyForm;
+use App\Rules\EmailSendingRule;
 use App\Services\IdentificationService;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Icons\Heroicon;
@@ -24,6 +25,7 @@ trait UserForm
         return self::textInput('email', placeholder: 'User Email')
         ->prefixIcon(fn () => Heroicon::OutlinedAtSymbol)
         ->helperText('Unique email for this User.')
+        ->unique(ignoreRecord: true)
         ->required()
         ->email();
     }
@@ -32,7 +34,12 @@ trait UserForm
     {
         return self::textInput('password', placeholder: 'User Password')
         ->helperText('Strong password for authentication of User.')
-        ->suffixActions(self::passwordAction())
+        ->suffixActions(
+            [
+                self::generatePassword(),
+                self::copyPassword(),
+            ],
+        )
         ->minLength(4)
         ->revealable()
         ->required(fn ($livewire) => $livewire instanceof CreateRecord)
@@ -57,9 +64,32 @@ trait UserForm
         ->default(false);
     }
 
+    public static function mustVerify()
+    {
+        $condition = fn ($livewire) => $livewire instanceOf CreateRecord;
+        return self::toggle('must_verify', 'Must Verify')
+        ->rule(fn ($state, $get) => $state ? new EmailSendingRule($get('name'), $get('email'), $get('token')) : null)
+        ->disabled(fn ($livewire) => !$condition($livewire))
+        ->helperText('User must be verified before using account.')
+        ->required($condition)
+        ->default(false)
+        ->reactive();
+    }
+
+    public static function token()
+    {
+        $condition = fn ($livewire, $get) => $livewire instanceOf CreateRecord && $get('must_verify') == true;
+        return self::textInput('token', placeholder: 'User Token')
+        ->helperText('Token for verification, autofill when leaved blank')
+        ->suffixAction(self::generateToken())
+        ->required($condition)
+        ->visible($condition);
+    }
+
     public static function policies($create = true)
     {
         $field = self::select('policies')
+        ->helperText('Select multiple Policies for User Definition.')
         ->relationship('policies', 'name')
         ->multiple();
 

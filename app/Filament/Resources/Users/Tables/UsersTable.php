@@ -18,6 +18,8 @@ class UsersTable
             self::canLogin(),
             self::policies(),
             self::owner(),
+            self::createdAt(),
+            self::updatedAt(),
         ])
         ->filters([
             //

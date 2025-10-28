@@ -17,6 +17,8 @@ class PermissionsTable
             self::type('resource'),
             self::type('action'),
             self::owner(),
+            self::createdAt(),
+            self::updatedAt(),
         ])
         ->filters([
             //

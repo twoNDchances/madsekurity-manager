@@ -24,13 +24,27 @@ class UserForm
             ->schema([
                 Components\Section::make('User Definition')
                 ->columnSpan(2)
-                ->columns(2)
+                ->columns(8)
                 ->schema([
-                    self::name(),
-                    self::email(),
+                    self::name()->columnSpan(4),
+                    self::email()->columnSpan(4),
                     self::password()->columnSpanFull(),
-                    self::canLogin(),
-                    self::isImportant(),
+
+                    Components\Fieldset::make('Behavior')
+                    ->columnSpan(3)
+                    ->columns(1)
+                    ->schema([
+                        self::canLogin(),
+                        self::isImportant(),
+                    ]),
+
+                    Components\Fieldset::make('Verification')
+                    ->columnSpan(5)
+                    ->columns(1)
+                    ->schema([
+                        self::mustVerify(),
+                        self::token(),
+                    ]),
                 ]),
 
                 Components\Section::make('User Policy')
