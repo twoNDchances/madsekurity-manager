@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Observers\PolicyObservers\PolicyObserver;
+use App\Observers\LabelObservers\LabelObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
-#[ObservedBy(PolicyObserver::class)]
-class Policy extends Model
+#[ObservedBy(LabelObserver::class)]
+class Label extends Model
 {
     protected $fillable = [
         'name',
+        'color',
         'description',
         'user_id',
     ];
@@ -23,6 +24,7 @@ class Policy extends Model
     {
         return [
             'name'        => 'string',
+            'color'       => 'string',
             'description' => 'string',
             'user_id'     => 'integer',
         ];
@@ -35,16 +37,26 @@ class Policy extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_policies');
+        return $this->morphedByMany(User::class, 'labellable');
+    }
+
+    public function policies()
+    {
+        return $this->morphedByMany(Policy::class, 'labellable');
     }
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'policies_permissions');
+        return $this->morphedByMany(Permission::class, 'labellable');
     }
 
-    public function labels()
+    public function settings()
     {
-        return $this->morphToMany(Label::class, 'labellable');
+        return $this->morphedByMany(Setting::class, 'labellable');
+    }
+
+    public function variables()
+    {
+        return $this->morphedByMany(Variable::class, 'labellable');
     }
 }

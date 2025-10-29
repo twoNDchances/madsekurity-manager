@@ -116,4 +116,9 @@ class Permission extends Model
     {
         return $this->belongsToMany(Policy::class, 'policies_permissions');
     }
+
+    public function labels()
+    {
+        return $this->morphToMany(Label::class, 'labellable');
+    }
 }

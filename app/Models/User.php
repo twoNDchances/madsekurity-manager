@@ -119,4 +119,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Variable::class, 'user_id');
     }
+
+    public function hasLabels()
+    {
+        return $this->hasMany(Label::class, 'user_id');
+    }
+
+    public function labels()
+    {
+        return $this->morphToMany(Label::class, 'labellable');
+    }
 }

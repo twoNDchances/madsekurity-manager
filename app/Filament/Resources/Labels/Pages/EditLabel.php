@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Filament\Resources\Labels\Pages;
+
+use App\Filament\Components\Preparations\LabelPreparation\EditLabelPreparation;
+use App\Filament\Resources\Labels\LabelResource;
+use Filament\Resources\Pages\EditRecord;
+
+class EditLabel extends EditRecord
+{
+    use EditLabelPreparation;
+
+    protected static string $resource = LabelResource::class;
+}

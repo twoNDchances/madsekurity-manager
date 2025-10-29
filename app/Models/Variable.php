@@ -41,4 +41,9 @@ class Variable extends Model
     {
         return $this->belongsTo(Setting::class, 'setting_id');
     }
+
+    public function labels()
+    {
+        return $this->morphToMany(Label::class, 'labellable');
+    }
 }

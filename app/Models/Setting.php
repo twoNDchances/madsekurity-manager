@@ -37,4 +37,9 @@ class Setting extends Model
     {
         return $this->hasMany(Variable::class, 'setting_id');
     }
+
+    public function labels()
+    {
+        return $this->morphToMany(Label::class, 'labellable');
+    }
 }

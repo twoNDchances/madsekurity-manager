@@ -65,4 +65,11 @@ trait GeneralForm
     //         false => $field,
     //     };
     // }
+
+    public static function colorPicker(string $name, $label = null)
+    {
+        return Components\ColorPicker::make($name)
+        ->default('#000000')
+        ->label($label);
+    }
 }
