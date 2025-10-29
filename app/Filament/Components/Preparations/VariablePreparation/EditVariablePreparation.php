@@ -1,12 +1,19 @@
 <?php
 
-namespace App\Filament\Components\Preparations\SettingPreparation;
+namespace App\Filament\Components\Preparations\VariablePreparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait EditPreparation
+trait EditVariablePreparation
 {
     use GeneralPreparation;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            self::deleteAction(),
+        ];
+    }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {

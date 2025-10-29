@@ -4,9 +4,16 @@ namespace App\Filament\Components\Preparations\UserPreparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait EditPreparation
+trait EditUserPreparation
 {
     use GeneralPreparation;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            self::deleteAction(),
+        ];
+    }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {

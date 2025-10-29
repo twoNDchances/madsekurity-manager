@@ -5,7 +5,7 @@ namespace App\Filament\Components\Preparations\UserPreparation;
 use App\Filament\Components\Generals\GeneralPreparation;
 use Illuminate\Support\Carbon;
 
-trait CreatePreparation
+trait CreateUserPreparation
 {
     use GeneralPreparation;
 

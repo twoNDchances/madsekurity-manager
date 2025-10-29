@@ -3,17 +3,12 @@
 namespace App\Filament\Clusters\Configurations\Resources\Settings\Pages;
 
 use App\Filament\Clusters\Configurations\Resources\Settings\SettingResource;
-use Filament\Actions\CreateAction;
+use App\Filament\Components\Preparations\SettingPreparation\ListSettingPreparation;
 use Filament\Resources\Pages\ListRecords;
 
 class ListSettings extends ListRecords
 {
-    protected static string $resource = SettingResource::class;
+    use ListSettingPreparation;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            CreateAction::make(),
-        ];
-    }
+    protected static string $resource = SettingResource::class;
 }

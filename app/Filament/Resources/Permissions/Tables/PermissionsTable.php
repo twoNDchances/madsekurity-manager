@@ -16,6 +16,7 @@ class PermissionsTable
             self::name(),
             self::type('resource'),
             self::type('action'),
+            self::policies(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

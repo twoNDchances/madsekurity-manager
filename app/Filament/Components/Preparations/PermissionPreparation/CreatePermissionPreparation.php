@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Components\Preparations\VariablePreparation;
+namespace App\Filament\Components\Preparations\PermissionPreparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait CreatePreparation
+trait CreatePermissionPreparation
 {
     use GeneralPreparation;
 

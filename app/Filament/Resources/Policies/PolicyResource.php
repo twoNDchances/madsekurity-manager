@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Policies;
 use App\Filament\Resources\Policies\Pages\CreatePolicy;
 use App\Filament\Resources\Policies\Pages\EditPolicy;
 use App\Filament\Resources\Policies\Pages\ListPolicies;
+use App\Filament\Resources\Policies\RelationManagers\PermissionsRelationManager;
+use App\Filament\Resources\Policies\RelationManagers\UsersRelationManager;
 use App\Filament\Resources\Policies\Schemas\PolicyForm;
 use App\Filament\Resources\Policies\Tables\PoliciesTable;
 use App\Models\Policy;
@@ -40,16 +42,17 @@ class PolicyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UsersRelationManager::class,
+            PermissionsRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListPolicies::route('/'),
+            'index'  => ListPolicies::route('/'),
             'create' => CreatePolicy::route('/create'),
-            'edit' => EditPolicy::route('/{record}/edit'),
+            'edit'   => EditPolicy::route('/{record}/edit'),
         ];
     }
 }

@@ -48,9 +48,9 @@ class VariableResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListVariables::route('/'),
+            'index'  => ListVariables::route('/'),
             'create' => CreateVariable::route('/create'),
-            'edit' => EditVariable::route('/{record}/edit'),
+            'edit'   => EditVariable::route('/{record}/edit'),
         ];
     }
 }

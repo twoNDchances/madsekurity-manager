@@ -2,21 +2,13 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
-use App\Filament\Components\Preparations\UserPreparation\EditPreparation;
+use App\Filament\Components\Preparations\UserPreparation\EditUserPreparation;
 use App\Filament\Resources\Users\UserResource;
-use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditUser extends EditRecord
 {
-    use EditPreparation;
+    use EditUserPreparation;
 
     protected static string $resource = UserResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            DeleteAction::make(),
-        ];
-    }
 }

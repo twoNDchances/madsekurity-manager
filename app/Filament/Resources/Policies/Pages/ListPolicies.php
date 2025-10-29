@@ -2,18 +2,13 @@
 
 namespace App\Filament\Resources\Policies\Pages;
 
+use App\Filament\Components\Preparations\PolicyPreparation\ListPolicyPreparation;
 use App\Filament\Resources\Policies\PolicyResource;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPolicies extends ListRecords
 {
-    protected static string $resource = PolicyResource::class;
+    use ListPolicyPreparation;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            CreateAction::make(),
-        ];
-    }
+    protected static string $resource = PolicyResource::class;
 }

@@ -129,8 +129,9 @@ class CustomComponentCommand extends Command
             },
             'preparation' => match ($withAction)
             {
-                'false' => "{$name}Preparation/CreatePreparation",
-                'true'  => "{$name}Preparation/EditPreparation",
+                'create' => "{$name}Preparation/Create{$name}Preparation",
+                'edit'   => "{$name}Preparation/Edit{$name}Preparation",
+                'list'   => "{$name}Preparation/List{$name}Preparation",
             },
             'table' => match ($withAction)
             {
@@ -151,18 +152,36 @@ class CustomComponentCommand extends Command
 
     private function validateExistPath(string $name, string $type): bool
     {
-        $componentPath = $this->getTemplatePath($name, $type, 'false') . '.php';
-        $componentActionPath = $this->getTemplatePath($name, $type, $type == 'action' ? 'false' : 'true') . '.php';
         $successFlag = true;
-        if (File::exists($componentPath))
+        switch ($type)
         {
-            $successFlag = false;
-            $this->error("$componentPath is already exists!");
-        }
-        if ($type != 'action' && File::exists($componentActionPath))
-        {
-            $successFlag = false;
-            $this->error("$componentActionPath is already exists!");
+            case 'preparation':
+                $pathTypes = ['create', 'edit', 'list'];
+                foreach ($pathTypes as $pathType)
+                {
+                    $path = $this->getTemplatePath($name, $type, $pathType) . '.php';
+                    if (File::exists($path))
+                    {
+                        $successFlag = false;
+                        $this->error("$path is already exists!");
+                        break;
+                    }
+                }
+                break;
+            default:
+                $componentPath = $this->getTemplatePath($name, $type, 'false') . '.php';
+                $componentActionPath = $this->getTemplatePath($name, $type, $type == 'action' ? 'false' : 'true') . '.php';
+                if (File::exists($componentPath))
+                {
+                    $successFlag = false;
+                    $this->error("$componentPath is already exists!");
+                }
+                if ($type != 'action' && File::exists($componentActionPath))
+                {
+                    $successFlag = false;
+                    $this->error("$componentActionPath is already exists!");
+                }
+                break;
         }
         return $successFlag;
     }
@@ -215,7 +234,7 @@ namespace {$this->namespacePreparation}\\{$name}Preparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait CreatePreparation
+trait Create{$name}Preparation
 {
     use GeneralPreparation;
 
@@ -233,9 +252,16 @@ namespace {$this->namespacePreparation}\\{$name}Preparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait EditPreparation
+trait Edit{$name}Preparation
 {
     use GeneralPreparation;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            self::deleteAction(),
+        ];
+    }
 
     protected function mutateFormDataBeforeFill(array \$data): array
     {
@@ -245,6 +271,31 @@ trait EditPreparation
     protected function mutateFormDataBeforeSave(array \$data): array
     {
         return \$data;
+    }
+}
+
+PHP,
+<<<PHP
+<?php
+
+namespace {$this->namespacePreparation}\\{$name}Preparation;
+
+use App\Filament\Components\Generals\GeneralAction;
+
+trait List{$name}Preparation
+{
+    use GeneralAction;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            self::createAction(),
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [];
     }
 }
 
@@ -313,50 +364,58 @@ PHP,
 
     private function makeTemplate(string $name, string $type): bool
     {
-        $componentPath = $this->getTemplatePath($name, $type, 'false') . '.php';
-        File::ensureDirectoryExists(File::dirname($componentPath));
-
-        $ok = match ($type)
-        {
-            'form' => [
-                File::put($componentPath, $this->buildFormTemplateWithAction($name)[0]),
-            ],
-            'preparation' => [
-                File::put($componentPath, $this->buildPreparationTemplate($name)[0]),
-                File::put(
-                    (function () use ($name, $type)
-                    {
-                        $componentActionPath = $this->getTemplatePath($name, $type, 'true') . '.php';
-                        File::ensureDirectoryExists(File::dirname($componentActionPath));
-                        return $componentActionPath;
-                    })(),
-                    $this->buildPreparationTemplate($name)[1],
-                ),
-            ],
-            'table' => [
-                File::put($componentPath, $this->buildTableTemplateWithAction($name)[0]),
-            ],
-            'action' => [
-                File::put($componentPath, $this->buildActionTemplate($name)[0]),
-            ]
-        };
-        if (!in_array($type, ['preparation', 'action']))
-        {
-            $componentActionPath = $this->getTemplatePath($name, $type, 'true') . '.php';
-            File::ensureDirectoryExists(File::dirname($componentActionPath));
-            $functionName = 'build' . Str::ucfirst($type) . 'TemplateWithAction';
-            $ok[]         = File::put($componentActionPath, $this->$functionName($name)[1]);
-        }
         $successFlag = true;
-        if ($ok[0] === false)
+        switch ($type)
         {
-            $successFlag = false;
-            $this->error("Create $componentPath failed with unknow reason!");
-        }
-        if (isset($ok[1]) && $ok[1] === false)
-        {
-            $successFlag = false;
-            $this->error("Create $componentActionPath failed with unknow reason!");
+            case 'preparation':
+                $pathTypes = ['create', 'edit', 'list'];
+                foreach ($pathTypes as $index => $pathType)
+                {
+                    $path = $this->getTemplatePath($name, $type, $pathType) . '.php';
+                    File::ensureDirectoryExists(File::dirname($path));
+                    $ok = File::put($path, $this->buildPreparationTemplate($name)[$index]);
+                    if ($ok === false)
+                    {
+                        $successFlag = false;
+                        $this->error("Create $path failed with unknow reason!");
+                        break;
+                    }
+                }
+                break;
+            default:
+                $componentPath = $this->getTemplatePath($name, $type, 'false') . '.php';
+                File::ensureDirectoryExists(File::dirname($componentPath));
+
+                $ok = match ($type)
+                {
+                    'form' => [
+                        File::put($componentPath, $this->buildFormTemplateWithAction($name)[0]),
+                    ],
+                    'table' => [
+                        File::put($componentPath, $this->buildTableTemplateWithAction($name)[0]),
+                    ],
+                    'action' => [
+                        File::put($componentPath, $this->buildActionTemplate($name)[0]),
+                    ]
+                };
+                if ($type != 'action')
+                {
+                    $componentActionPath = $this->getTemplatePath($name, $type, 'true') . '.php';
+                    File::ensureDirectoryExists(File::dirname($componentActionPath));
+                    $functionName = 'build' . Str::ucfirst($type) . 'TemplateWithAction';
+                    $ok[]         = File::put($componentActionPath, $this->$functionName($name)[1]);
+                }
+                if ($ok[0] === false)
+                {
+                    $successFlag = false;
+                    $this->error("Create $componentPath failed with unknow reason!");
+                }
+                if (isset($ok[1]) && $ok[1] === false)
+                {
+                    $successFlag = false;
+                    $this->error("Create $componentActionPath failed with unknow reason!");
+                }
+                break;
         }
         return $successFlag;
     }

@@ -3,9 +3,40 @@
 namespace App\Filament\Components\Generals;
 
 use Filament\Actions;
+use Filament\Support\Icons\Heroicon;
 
 trait GeneralAction
 {
+    public static function createAction()
+    {
+        return Actions\CreateAction::make()->icon(fn () => Heroicon::OutlinedPlus);
+    }
+
+    public static function attachAction()
+    {
+        return Actions\AttachAction::make()->icon(fn () => Heroicon::OutlinedLink);
+    }
+
+    public static function viewAction()
+    {
+        return Actions\ViewAction::make()->icon(fn () => Heroicon::OutlinedEye);
+    }
+
+    public static function editAction()
+    {
+        return Actions\EditAction::make()->icon(fn () => Heroicon::OutlinedPencilSquare);
+    }
+
+    public static function detachAction()
+    {
+        return Actions\DetachAction::make()->icon(fn () => Heroicon::OutlinedXMark);
+    }
+
+    public static function deleteAction()
+    {
+        return Actions\DeleteAction::make()->icon(fn () => Heroicon::OutlinedTrash);
+    }
+
     public static function action(string $name, $label = null, $icon = null, $action = null)
     {
         return Actions\Action::make($name)
@@ -19,11 +50,11 @@ trait GeneralAction
         $actionGroup = [];
         if ($view)
         {
-            $actionGroup[] = Actions\ViewAction::make();
+            $actionGroup[] = self::viewAction();
         }
         if ($edit)
         {
-            $actionGroup[] = Actions\EditAction::make();
+            $actionGroup[] = self::editAction();
         }
         if (count($more) > 0)
         {
@@ -34,9 +65,32 @@ trait GeneralAction
         }
         if ($delete)
         {
-            $actionGroup[] = Actions\DeleteAction::make();
+            $actionGroup[] = self::deleteAction();
         }
         return Actions\ActionGroup::make($actionGroup);
+    }
+
+    public static function relationManagerHeaderActionGroup($create = true, $attach = true)
+    {
+        $headerActionGroup = [];
+        if ($create)
+        {
+            $headerActionGroup[] = self::createAction();
+        }
+        if ($attach)
+        {
+            $headerActionGroup[] = self::attachAction();
+        }
+        return Actions\ActionGroup::make($headerActionGroup);
+    }
+
+    public static function relationManagerRecordActionGroup($view = true, $edit = true, $detach = true, $delete = true, $more = [])
+    {
+        if ($detach)
+        {
+            $more[] = self::detachAction();
+        }
+        return self::actionGroup($view, $edit, $delete, $more);
     }
 
     public static function bulkAction(string $name, $label = null, $icon = null, $action = null)
@@ -62,5 +116,14 @@ trait GeneralAction
             $bulkActionGroup[] = Actions\DeleteBulkAction::make();
         }
         return Actions\BulkActionGroup::make($bulkActionGroup);
+    }
+
+    public static function relationManagerToolbarActionGroup($detach = true, $delete = true, $more = [])
+    {
+        if ($detach)
+        {
+            $more[] = Actions\DetachBulkAction::make();
+        }
+        return self::bulkActionGroup($delete, $more);
     }
 }

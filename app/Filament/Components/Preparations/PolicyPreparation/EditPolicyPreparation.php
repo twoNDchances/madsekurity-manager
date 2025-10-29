@@ -1,12 +1,19 @@
 <?php
 
-namespace App\Filament\Components\Preparations\VariablePreparation;
+namespace App\Filament\Components\Preparations\PolicyPreparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait EditPreparation
+trait EditPolicyPreparation
 {
     use GeneralPreparation;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            self::deleteAction(),
+        ];
+    }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {

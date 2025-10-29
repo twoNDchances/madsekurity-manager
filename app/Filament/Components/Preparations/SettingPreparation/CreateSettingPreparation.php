@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Components\Preparations\PolicyPreparation;
+namespace App\Filament\Components\Preparations\SettingPreparation;
 
 use App\Filament\Components\Generals\GeneralPreparation;
 
-trait CreatePreparation
+trait CreateSettingPreparation
 {
     use GeneralPreparation;
 

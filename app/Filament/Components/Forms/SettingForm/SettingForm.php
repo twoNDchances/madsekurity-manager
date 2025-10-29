@@ -26,7 +26,7 @@ trait SettingForm
     public static function hasVariables($create = true)
     {
         $field = self::select('has_variables', 'Variables')
-        ->relationship('hasVariables', 'key')
+        ->relationship('hasVariables', 'key', fn ($query) => $query->where('setting_id', null))
         ->multiple();
 
         return match ($create)
