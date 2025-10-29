@@ -15,6 +15,7 @@ class SettingsTable
         ->columns([
             self::name(),
             self::hasVariables(),
+            self::labels(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

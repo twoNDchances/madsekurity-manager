@@ -19,6 +19,7 @@ trait LabelForm
     public static function color()
     {
         return self::colorPicker('color')
+        ->helperText('A color for Label identity, make badge for any resources.')
         ->required();
     }
 

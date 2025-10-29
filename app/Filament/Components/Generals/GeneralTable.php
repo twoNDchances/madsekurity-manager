@@ -2,6 +2,7 @@
 
 namespace App\Filament\Components\Generals;
 
+use Filament\Support\Colors\Color;
 use Filament\Tables\Columns;
 
 trait GeneralTable
@@ -11,14 +12,8 @@ trait GeneralTable
         return Columns\TextColumn::make($name)
         ->label($label)
         ->searchable()
-        ->sortable()
-        ->toggleable();
-    }
-
-    public static function owner()
-    {
-        return self::textColumn('user.email', 'Belongs To')
-        ->badge();
+        ->toggleable()
+        ->sortable();
     }
 
     public static function booleanColumn(string $name, $label = null)
@@ -26,18 +21,41 @@ trait GeneralTable
         return Columns\IconColumn::make($name)
         ->label($label)
         ->searchable()
-        ->sortable()
         ->toggleable()
+        ->sortable()
         ->boolean();
     }
 
     public static function relationshipColumn(string $name, $label = null)
     {
         return self::textColumn($name, $label)
-        ->limitList(5)
-        ->bulleted()
+        ->expandableLimitedList()
         ->listWithLineBreaks()
-        ->expandableLimitedList();
+        ->limitList(5)
+        ->bulleted();
+    }
+
+    public static function colorColumn(string $name, $label = null)
+    {
+        return Columns\ColorColumn::make($name)
+        ->label($label)
+        ->searchable()
+        ->toggleable()
+        ->sortable();
+    }
+
+    public static function labels()
+    {
+        return self::relationshipColumn('labels.name', 'Labels')
+        ->color(fn ($state, $record) => Color::hex($record->labels()->pluck('color', 'name')->toArray()[$state]))
+        ->bulleted(false)
+        ->badge();
+    }
+
+    public static function owner()
+    {
+        return self::textColumn('user.email', 'Belongs To')
+        ->badge();
     }
 
     public static function datetimeColumn(string $name, $label = null)

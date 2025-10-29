@@ -31,11 +31,18 @@ class PermissionForm
                     self::description()->columnSpanFull(),
                 ]),
 
-                Components\Section::make('Permission Policies')
+                Components\Grid::make(1)
                 ->columnSpan(1)
-                ->columns(1)
                 ->schema([
-                    self::policies($policy)
+                    Components\Section::make('Permission Policies')
+                    ->schema([
+                        self::policies($policy)
+                    ]),
+
+                    Components\Section::make('Permission Labels')
+                    ->schema([
+                        self::labels(),
+                    ]),
                 ]),
             ]),
         ];

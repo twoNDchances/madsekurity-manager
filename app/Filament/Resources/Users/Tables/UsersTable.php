@@ -17,6 +17,7 @@ class UsersTable
             self::isVerified(),
             self::canLogin(),
             self::policies(),
+            self::labels(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

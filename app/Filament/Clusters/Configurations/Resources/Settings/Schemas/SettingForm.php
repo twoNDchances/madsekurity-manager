@@ -30,11 +30,19 @@ class SettingForm
                     self::description(),
                 ]),
 
-                Components\Section::make('Setting Variables')
+                Components\Grid::make(1)
                 ->columnSpan(1)
                 ->columns(1)
                 ->schema([
-                    self::hasVariables($variable),
+                    Components\Section::make('Setting Variables')
+                    ->schema([
+                        self::hasVariables($variable),
+                    ]),
+
+                    Components\Section::make('Setting Labels')
+                    ->schema([
+                        self::labels(),
+                    ]),
                 ]),
             ]),
         ];

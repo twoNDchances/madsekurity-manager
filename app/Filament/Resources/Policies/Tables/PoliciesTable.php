@@ -16,6 +16,7 @@ class PoliciesTable
             self::name(),
             self::users(),
             self::permissions(),
+            self::labels(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

@@ -159,6 +159,7 @@ PHP;
 namespace $this->namespace\\{$name}Observers;
 
 use App\Models\\{$name};
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -175,7 +176,7 @@ trait AfterObserver
      */
     public function created($name $variableName): void
     {
-        //
+        BehaviorService::perform($variableName, 'Create');
     }
 
     /**
@@ -183,7 +184,7 @@ trait AfterObserver
      */
     public function updated($name $variableName): void
     {
-        //
+        BehaviorService::perform($variableName, 'Update');
     }
 
     /**
@@ -191,7 +192,7 @@ trait AfterObserver
      */
     public function deleted($name $variableName): void
     {
-        //
+        BehaviorService::perform($variableName, 'Delete');
     }
 
     /**

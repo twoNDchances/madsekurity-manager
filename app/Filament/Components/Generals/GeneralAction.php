@@ -3,6 +3,7 @@
 namespace App\Filament\Components\Generals;
 
 use Filament\Actions;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 
 trait GeneralAction
@@ -19,7 +20,7 @@ trait GeneralAction
 
     public static function viewAction()
     {
-        return Actions\ViewAction::make()->icon(fn () => Heroicon::OutlinedEye);
+        return Actions\ViewAction::make()->icon(fn () => Heroicon::OutlinedEye)->modalWidth(Width::SevenExtraLarge);
     }
 
     public static function editAction()

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Components\Generals;
 
+use App\Filament\Resources\Labels\Schemas\LabelForm;
 use Filament\Forms\Components;
 
 trait GeneralForm
@@ -48,23 +49,19 @@ trait GeneralForm
     {
         return Components\ToggleButtons::make($name)
         ->label($label)
-        ->colors($colorsAndOptions['color'])
+        ->colors($colorsAndOptions['colors'])
         ->options($colorsAndOptions['options'])
         ->inline();
     }
 
-    // public static function relationshipSelect(string $name, $attribute, $form, $create = true, $multiple = true, $label = null)
-    // {
-    //     $field = self::select($name, $label)
-    //     ->relationship($name, $attribute)
-    //     ->multiple($multiple);
-
-    //     return match ($create)
-    //     {
-    //         true  => $field->createOptionForm($form),
-    //         false => $field,
-    //     };
-    // }
+    public static function labels()
+    {
+        return self::select('labels')
+        ->helperText('Select multiple Labels for this resource.')
+        ->relationship('labels', 'name')
+        ->createOptionForm(LabelForm::main())
+        ->multiple();
+    }
 
     public static function colorPicker(string $name, $label = null)
     {

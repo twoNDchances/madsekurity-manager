@@ -20,7 +20,7 @@ trait ListVariablePreparation
     public function getTabs(): array
     {
         $settings = Setting::all();
-        $data = [];
+        $data     = [];
         foreach ($settings as $setting)
         {
             $data[$setting->name] = Tab::make()

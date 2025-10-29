@@ -3,6 +3,7 @@
 namespace App\Observers\UserObservers;
 
 use App\Models\User;
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -19,7 +20,7 @@ trait AfterObserver
      */
     public function created(User $user): void
     {
-        //
+        BehaviorService::perform($user, 'Create');
     }
 
     /**
@@ -27,7 +28,7 @@ trait AfterObserver
      */
     public function updated(User $user): void
     {
-        //
+        BehaviorService::perform($user, 'Update');
     }
 
     /**
@@ -35,7 +36,7 @@ trait AfterObserver
      */
     public function deleted(User $user): void
     {
-        //
+        BehaviorService::perform($user, 'Delete');
     }
 
     /**

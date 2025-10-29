@@ -47,4 +47,9 @@ class Policy extends Model
     {
         return $this->morphToMany(Label::class, 'labellable');
     }
+
+    public function hasBehaviors()
+    {
+        return $this->morphMany(Behavior::class, 'resource');
+    }
 }

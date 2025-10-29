@@ -3,6 +3,7 @@
 namespace App\Observers\SettingObservers;
 
 use App\Models\Setting;
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -19,7 +20,7 @@ trait AfterObserver
      */
     public function created(Setting $setting): void
     {
-        //
+        BehaviorService::perform($setting, 'Create');
     }
 
     /**
@@ -27,7 +28,7 @@ trait AfterObserver
      */
     public function updated(Setting $setting): void
     {
-        //
+        BehaviorService::perform($setting, 'Update');
     }
 
     /**
@@ -35,7 +36,7 @@ trait AfterObserver
      */
     public function deleted(Setting $setting): void
     {
-        //
+        BehaviorService::perform($setting, 'Delete');
     }
 
     /**

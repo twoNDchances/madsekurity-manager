@@ -31,10 +31,9 @@ class ManagerPanelProvider extends PanelProvider
         ->login()
         ->colors([
             'cyan'    => Color::Cyan,
-            'indigo'  => Color::Indigo,
             'orange'  => Color::Orange,
             'pink'    => Color::Pink,
-            'primary' => Color::Blue,
+            'primary' => Color::Indigo,
             'purple'  => Color::Purple,
             'rose'    => Color::Rose,
             'slate'   => Color::Slate,
@@ -70,6 +69,7 @@ class ManagerPanelProvider extends PanelProvider
         ->sidebarCollapsibleOnDesktop()
         ->databaseNotifications()
         ->navigationGroups([
+            'Audits',
             'Utilities',
             'Privileges',
             'Others',

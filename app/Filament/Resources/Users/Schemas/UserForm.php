@@ -47,11 +47,19 @@ class UserForm
                     ]),
                 ]),
 
-                Components\Section::make('User Policy')
+                Components\Grid::make(1)
                 ->columnSpan(1)
                 ->columns(1)
                 ->schema([
-                    self::policies($policy),
+                    Components\Section::make('User Policies')
+                    ->schema([
+                        self::policies($policy),
+                    ]),
+
+                    Components\Section::make('User Labels')
+                    ->schema([
+                        self::labels(),
+                    ]),
                 ]),
             ]),
         ];

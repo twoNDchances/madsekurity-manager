@@ -24,24 +24,25 @@ class PolicyForm
             ->schema([
                 Components\Section::make('Policy Definition')
                 ->columnSpan(2)
-                ->columns(1)
+                ->columns(2)
                 ->schema([
                     self::name(),
-                    self::description(),
+                    self::permissions($permission),
+                    self::description()->columnSpanFull(),
                 ]),
 
                 Components\Grid::make(1)
                 ->columnSpan(1)
                 ->columns(1)
                 ->schema([
-                    Components\Section::make('Policy Permissions')
-                    ->schema([
-                        self::permissions($permission)
-                    ]),
-
                     Components\Section::make('Policy Users')
                     ->schema([
                         self::users($user)
+                    ]),
+
+                    Components\Section::make('Policy Labels')
+                    ->schema([
+                        self::labels(),
                     ]),
                 ]),
             ]),

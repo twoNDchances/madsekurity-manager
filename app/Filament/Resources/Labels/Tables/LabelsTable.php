@@ -13,6 +13,9 @@ class LabelsTable
     {
         return $table
         ->columns([
+            self::name(),
+            self::color(),
+            self::preview(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

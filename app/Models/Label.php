@@ -59,4 +59,9 @@ class Label extends Model
     {
         return $this->morphedByMany(Variable::class, 'labellable');
     }
+
+    public function hasBehaviors()
+    {
+        return $this->morphMany(Behavior::class, 'resource');
+    }
 }

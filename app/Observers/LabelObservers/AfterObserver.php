@@ -3,6 +3,7 @@
 namespace App\Observers\LabelObservers;
 
 use App\Models\Label;
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -19,7 +20,7 @@ trait AfterObserver
      */
     public function created(Label $label): void
     {
-        //
+        BehaviorService::perform($label, 'Create');
     }
 
     /**
@@ -27,7 +28,7 @@ trait AfterObserver
      */
     public function updated(Label $label): void
     {
-        //
+        BehaviorService::perform($label, 'Update');
     }
 
     /**
@@ -35,7 +36,7 @@ trait AfterObserver
      */
     public function deleted(Label $label): void
     {
-        //
+        BehaviorService::perform($label, 'Delete');
     }
 
     /**

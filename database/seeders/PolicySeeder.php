@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Label;
 use App\Models\Permission;
 use App\Models\Policy;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Env;
 
 class PolicySeeder extends Seeder
 {
@@ -14,7 +16,7 @@ class PolicySeeder extends Seeder
      */
     public function run(): void
     {
-        $policyName = 'full-access';
+        $policyName = Env::get('MANAGER_POLICY_DEFAULT', 'full-access');
         if (!Policy::query()->where('name', $policyName)->exists())
         {
             $user = User::firstWhere('email', env('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'));
@@ -24,6 +26,9 @@ class PolicySeeder extends Seeder
             ]);
             $permissions = Permission::where('action', 'like', '%.all')->pluck('id');
             $policy->permissions()->sync($permissions);
+            Label::firstWhere('name', Env::get('MANAGER_LABEL_DEFAULT', 'default-assets'))
+            ->policies()
+            ->sync($policy->id);
         }
     }
 }

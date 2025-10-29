@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Label;
 use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Env;
 
 class PermissionSeeder extends Seeder
 {
@@ -13,16 +15,20 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $user     = User::firstWhere('email', env('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'));
-        $policies = Permission::getPolicyPermissionOptions();
-        $excluded = Permission::flattenExclusionList();
+        $user = User::firstWhere(
+            'email', 
+            env('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'),
+        );
+        $policies      = Permission::getPolicyPermissionOptions();
+        $excluded      = Permission::flattenExclusionList();
+        $permissionIds = [];
         foreach ($policies as $key => $value)
         {
             if (in_array($key, $excluded))
             {
                 continue;
             }
-            Permission::createOrFirst(
+            $permissionIds[] = Permission::firstOrCreate(
                 [
                     'name'   => $value,
                     'action' => $key
@@ -32,7 +38,11 @@ class PermissionSeeder extends Seeder
                     'action'  => $key,
                     'user_id' => $user->id,
                 ]
-            );
+            )
+            ->id;
         }
+        Label::firstWhere('name', Env::get('MANAGER_LABEL_DEFAULT', 'default-assets'))
+        ->permissions()
+        ->sync($permissionIds);
     }
 }

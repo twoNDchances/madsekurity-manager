@@ -5,6 +5,11 @@ namespace App\Filament\Resources\Labels;
 use App\Filament\Resources\Labels\Pages\CreateLabel;
 use App\Filament\Resources\Labels\Pages\EditLabel;
 use App\Filament\Resources\Labels\Pages\ListLabels;
+use App\Filament\Resources\Labels\RelationManagers\PermissionsRelationManager;
+use App\Filament\Resources\Labels\RelationManagers\PoliciesRelationManager;
+use App\Filament\Resources\Labels\RelationManagers\SettingsRelationManager;
+use App\Filament\Resources\Labels\RelationManagers\UsersRelationManager;
+use App\Filament\Resources\Labels\RelationManagers\VariablesRelationManager;
 use App\Filament\Resources\Labels\Schemas\LabelForm;
 use App\Filament\Resources\Labels\Tables\LabelsTable;
 use App\Models\Label;
@@ -40,7 +45,11 @@ class LabelResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PermissionsRelationManager::class,
+            PoliciesRelationManager::class,
+            UsersRelationManager::class,
+            VariablesRelationManager::class,
+            SettingsRelationManager::class,
         ];
     }
 

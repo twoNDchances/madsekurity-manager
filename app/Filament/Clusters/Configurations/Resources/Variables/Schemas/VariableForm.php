@@ -37,11 +37,19 @@ class VariableForm
                     self::description()->columnSpanFull(),
                 ]),
 
-                Components\Section::make('Variable Setting')
+                Components\Grid::make(1)
                 ->columnSpan(1)
                 ->columns(1)
                 ->schema([
-                    self::setting($setting),
+                    Components\Section::make('Variable Setting')
+                    ->schema([
+                        self::setting($setting),
+                    ]),
+
+                    Components\Section::make('Variable Labels')
+                    ->schema([
+                        self::labels(),
+                    ]),
                 ]),
             ]),
         ];

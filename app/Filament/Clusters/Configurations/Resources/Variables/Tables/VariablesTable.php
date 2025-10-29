@@ -16,6 +16,7 @@ class VariablesTable
             self::key(),
             self::isSecret(),
             self::valueLength(),
+            self::labels(),
             self::owner(),
             self::createdAt(),
             self::updatedAt(),

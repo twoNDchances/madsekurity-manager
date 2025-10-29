@@ -12,6 +12,7 @@ class Variable extends Model
     protected $fillable = [
         'key',
         'value',
+        'is_secret',
         'description',
         'setting_id',
         'user_id',
@@ -26,6 +27,7 @@ class Variable extends Model
         return [
             'key'         => 'string',
             'value'       => 'string',
+            'is_secret'   => 'boolean',
             'description' => 'string',
             'setting_id'  => 'integer',
             'user_id'     => 'integer',
@@ -45,5 +47,10 @@ class Variable extends Model
     public function labels()
     {
         return $this->morphToMany(Label::class, 'labellable');
+    }
+
+    public function hasBehaviors()
+    {
+        return $this->morphMany(Behavior::class, 'resource');
     }
 }

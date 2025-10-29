@@ -129,4 +129,14 @@ class User extends Authenticatable
     {
         return $this->morphToMany(Label::class, 'labellable');
     }
+
+    public function hasBehaviors()
+    {
+        return $this->hasMany(Behavior::class, 'user_id');
+    }
+
+    public function hasMophBehaviors()
+    {
+        return $this->morphMany(Behavior::class, 'resource');
+    }
 }

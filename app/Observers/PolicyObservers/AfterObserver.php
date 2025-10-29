@@ -3,6 +3,7 @@
 namespace App\Observers\PolicyObservers;
 
 use App\Models\Policy;
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -19,7 +20,7 @@ trait AfterObserver
      */
     public function created(Policy $policy): void
     {
-        //
+        BehaviorService::perform($policy, 'Create');
     }
 
     /**
@@ -27,7 +28,7 @@ trait AfterObserver
      */
     public function updated(Policy $policy): void
     {
-        //
+        BehaviorService::perform($policy, 'Update');
     }
 
     /**
@@ -35,7 +36,7 @@ trait AfterObserver
      */
     public function deleted(Policy $policy): void
     {
-        //
+        BehaviorService::perform($policy, 'Delete');
     }
 
     /**

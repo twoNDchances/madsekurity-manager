@@ -3,6 +3,7 @@
 namespace App\Observers\PermissionObservers;
 
 use App\Models\Permission;
+use App\Services\BehaviorService;
 
 trait AfterObserver
 {
@@ -19,7 +20,7 @@ trait AfterObserver
      */
     public function created(Permission $permission): void
     {
-        //
+        BehaviorService::perform($permission, 'Create');
     }
 
     /**
@@ -27,7 +28,7 @@ trait AfterObserver
      */
     public function updated(Permission $permission): void
     {
-        //
+        BehaviorService::perform($permission, 'Update');
     }
 
     /**
@@ -35,7 +36,7 @@ trait AfterObserver
      */
     public function deleted(Permission $permission): void
     {
-        //
+        BehaviorService::perform($permission, 'Delete');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Observers\VariableObservers;
 use App\Models\Variable;
 use App\Services\IdentificationService;
 use Illuminate\Support\Str;
+use ParagonIE\ConstantTime\Base64;
 
 trait BeforeObserver
 {
@@ -18,6 +19,10 @@ trait BeforeObserver
             '_',
             Str::slug($variable->key),
         ));
+        if ($variable->is_secret)
+        {
+            $variable->value = Base64::encode($variable->value);
+        }
     }
 
     /**
