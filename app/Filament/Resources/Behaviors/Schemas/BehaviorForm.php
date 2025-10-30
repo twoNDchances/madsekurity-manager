@@ -25,6 +25,15 @@ class BehaviorForm
                 Components\Section::make('Behavior Definition')
                 ->columns(3)
                 ->schema([
+                    Components\Fieldset::make('Resource')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+                        self::resourceType(),
+                        self::resourceId(),
+                        self::resourceUrl()->columnSpanFull(),
+                    ]),
+
                     Components\Grid::make(2)
                     ->columnSpan(2)
                     ->schema([
@@ -35,15 +44,6 @@ class BehaviorForm
 
                     self::method(),
                     self::route()->columnSpanFull(),
-
-                    Components\Fieldset::make('Resource')
-                    ->columnSpanFull()
-                    ->columns(2)
-                    ->schema([
-                        self::resourceType(),
-                        self::resourceId(),
-                        self::resourceUrl()->columnSpanFull(),
-                    ]),
                 ]),
 
                 Components\Section::make('Behavior Information')

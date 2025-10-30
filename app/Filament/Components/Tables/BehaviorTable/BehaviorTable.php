@@ -3,8 +3,7 @@
 namespace App\Filament\Components\Tables\BehaviorTable;
 
 use App\Filament\Components\Generals\GeneralTable;
-use Illuminate\Support\Str;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use App\Services\BehaviorService;
 
 trait BehaviorTable
 {
@@ -48,33 +47,18 @@ trait BehaviorTable
         ->badge();
     }
 
-    public static function resource()
+    public static function resourceType()
     {
-        return self::textColumn('resource')
-        ->getStateUsing(fn ($record) => class_basename($record->resource_type))
-        ->url(function ($record)
-        {
-            $resourceName = Str::lower(class_basename($record->resource_type));
-            $routePrefix = null;
-            switch ($resourceName)
-            {
-                case 'variable':
-                case 'setting':
-                    $routePrefix = 'filament.manager.configurations.resources.' . Str::plural($resourceName);
-                    break;
-                default:
-                    $routePrefix = 'filament.manager.resources.' . Str::plural($resourceName);
-                    break;
-            }
-            try
-            {
-                return route("$routePrefix.edit", ['record' => $record->resource_id]);
-            }
-            catch (RouteNotFoundException $exception)
-            {
-                return route("$routePrefix.index") . "?idNotFound=$record->resource_id";
-            }
-        })
+        return self::textColumn('resource_type', 'Resource Type')
+        ->url(fn ($record) => BehaviorService::getResourceUrl($record))
+        ->formatStateUsing(fn ($state) => class_basename($state))
         ->openUrlInNewTab();
+    }
+
+    public static function happenedAt()
+    {
+        return self::createdAt()
+        ->toggledHiddenByDefault(false)
+        ->label('Happened At');
     }
 }

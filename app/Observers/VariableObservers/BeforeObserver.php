@@ -14,11 +14,7 @@ trait BeforeObserver
      */
     public function saving(Variable $variable): void
     {
-        $variable->key = Str::upper(Str::replace(
-            '-',
-            '_',
-            Str::slug($variable->key),
-        ));
+        $variable->key = Str::upper(Str::snake($variable->key));
         if ($variable->is_secret)
         {
             $variable->value = Base64::encode($variable->value);

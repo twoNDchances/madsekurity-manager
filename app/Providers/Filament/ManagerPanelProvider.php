@@ -69,6 +69,7 @@ class ManagerPanelProvider extends PanelProvider
         ->sidebarCollapsibleOnDesktop()
         ->databaseNotifications()
         ->navigationGroups([
+            'Managements',
             'Audits',
             'Utilities',
             'Privileges',

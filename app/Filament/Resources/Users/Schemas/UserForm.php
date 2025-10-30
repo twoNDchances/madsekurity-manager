@@ -49,14 +49,15 @@ class UserForm
 
                 Components\Grid::make(1)
                 ->columnSpan(1)
-                ->columns(1)
                 ->schema([
                     Components\Section::make('User Policies')
+                    ->columns(1)
                     ->schema([
                         self::policies($policy),
                     ]),
 
                     Components\Section::make('User Labels')
+                    ->columns(1)
                     ->schema([
                         self::labels(),
                     ]),

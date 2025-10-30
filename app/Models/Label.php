@@ -64,4 +64,9 @@ class Label extends Model
     {
         return $this->morphMany(Behavior::class, 'resource');
     }
+
+    public function wordlists()
+    {
+        return $this->morphedByMany(Wordlist::class, 'labellable');
+    }
 }

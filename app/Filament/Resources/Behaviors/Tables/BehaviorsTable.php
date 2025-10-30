@@ -13,14 +13,13 @@ class BehaviorsTable
     {
         return $table
         ->columns([
+            self::happenedAt(),
             self::address(),
             self::method(),
             self::route(),
             self::behaviorAction(),
-            self::resource(),
+            self::resourceType(),
             self::owner(),
-            self::createdAt(),
-            self::updatedAt(),
         ])
         ->filters([
             //
@@ -30,6 +29,7 @@ class BehaviorsTable
         ])
         ->toolbarActions([
             self::bulkActionGroup(),
-        ]);
+        ])
+        ->defaultSort('created_at', 'desc');
     }
 }

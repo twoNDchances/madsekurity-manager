@@ -139,4 +139,9 @@ class User extends Authenticatable
     {
         return $this->morphMany(Behavior::class, 'resource');
     }
+
+    public function hasWordlists()
+    {
+        return $this->hasMany(Wordlist::class, 'user_id');
+    }
 }

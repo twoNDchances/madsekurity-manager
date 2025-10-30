@@ -3,8 +3,7 @@
 namespace App\Filament\Components\Forms\BehaviorForm;
 
 use App\Filament\Components\Generals\GeneralForm;
-use Illuminate\Support\Str;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use App\Services\BehaviorService;
 
 trait BehaviorForm
 {
@@ -67,29 +66,7 @@ trait BehaviorForm
     public static function resourceUrl()
     {
         return self::textInput('resource_url', 'URL', 'Behavior Resource URL')
-        ->formatStateUsing(function ($record)
-        {
-            $resourceName = Str::lower(class_basename($record->resource_type));
-            $routePrefix = null;
-            switch ($resourceName)
-            {
-                case 'variable':
-                case 'setting':
-                    $routePrefix = 'filament.manager.configurations.resources.' . Str::plural($resourceName);
-                    break;
-                default:
-                    $routePrefix = 'filament.manager.resources.' . Str::plural($resourceName);
-                    break;
-            }
-            try
-            {
-                return route("$routePrefix.edit", ['record' => $record->resource_id]);
-            }
-            catch (RouteNotFoundException $exception)
-            {
-                return route("$routePrefix.index") . "?idNotFound=$record->resource_id";
-            }
-        })
+        ->formatStateUsing(fn ($record) => BehaviorService::getResourceUrl($record))
         ->suffixActions(
             [
                 self::copyResourceUrl(),

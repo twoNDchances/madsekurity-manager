@@ -43,7 +43,10 @@ class Permission extends Model
     ];
 
     private static array $exclusionList = [
-        //
+        'behavior' => [
+            'create',
+            'update',
+        ],
     ];
 
     public static function getPolicyPermissionOptions(): array

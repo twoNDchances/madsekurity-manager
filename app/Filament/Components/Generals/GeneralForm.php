@@ -10,16 +10,16 @@ trait GeneralForm
     public static function textInput(string $name, $label = null, $placeholder = null)
     {
         return Components\TextInput::make($name)
-        ->label($label)
         ->placeholder($placeholder)
-        ->maxLength(255);
+        ->maxLength(255)
+        ->label($label);
     }
 
     public static function textArea(string $name, $label = null, $placeholder = null)
     {
         return Components\Textarea::make($name)
-        ->label($label)
         ->placeholder($placeholder)
+        ->label($label)
         ->rows(6);
     }
 
@@ -37,20 +37,20 @@ trait GeneralForm
         ->preload();
     }
 
-    // public static function fileUpload(string $name, $label = null, $directory = null)
-    // {
-    //     return Components\FileUpload::make($name)
-    //     ->label($label)
-    //     ->directory($directory)
-    //     ->visibility('public');
-    // }
+    public static function fileUpload(string $name, $label = null, $directory = null)
+    {
+        return Components\FileUpload::make($name)
+        ->visibility('private')
+        ->directory($directory)
+        ->label($label);
+    }
 
     public static function toggleButtons(string $name, $label = null, array $colorsAndOptions = ['colors' => [], 'options' => []])
     {
         return Components\ToggleButtons::make($name)
-        ->label($label)
-        ->colors($colorsAndOptions['colors'])
         ->options($colorsAndOptions['options'])
+        ->colors($colorsAndOptions['colors'])
+        ->label($label)
         ->inline();
     }
 

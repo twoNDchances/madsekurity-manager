@@ -13,6 +13,7 @@ trait LabelForm
         return self::textInput('name', placeholder: 'Label Name')
         ->helperText('Simple name with kebab case about this Label.')
         ->unique(ignoreRecord: true)
+        ->alphaDash()
         ->required();
     }
 
