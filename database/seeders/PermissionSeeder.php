@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
     {
         $user = User::firstWhere(
             'email', 
-            env('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'),
+            Env::get('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'),
         );
         $policies      = Permission::getPolicyPermissionOptions();
         $excluded      = Permission::flattenExclusionList();

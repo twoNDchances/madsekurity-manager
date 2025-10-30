@@ -24,7 +24,8 @@ trait ListVariablePreparation
         foreach ($settings as $setting)
         {
             $data[$setting->name] = Tab::make()
-            ->modifyQueryUsing(fn ($query) => $query->where('setting_id', $setting->id));
+            ->modifyQueryUsing(fn ($query) => $query->where('setting_id', $setting->id))
+            ->label($setting->name);
         }
         return $data;
     }

@@ -19,7 +19,7 @@ class PolicySeeder extends Seeder
         $policyName = Env::get('MANAGER_POLICY_DEFAULT', 'full-access');
         if (!Policy::query()->where('name', $policyName)->exists())
         {
-            $user = User::firstWhere('email', env('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'));
+            $user = User::firstWhere('email', Env::get('MANAGER_USER_MAIL', 'root@madsekurity.2ndproject.site'));
             $policy = Policy::create([
                 'name'    => $policyName,
                 'user_id' => $user->id,
