@@ -6,10 +6,10 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait CreatePolicyPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SavePolicyPreparation;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

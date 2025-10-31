@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListBehaviors extends ListRecords
 {
-    use ListBehaviorPreparation;
+    // use ListBehaviorPreparation;
 
     protected static string $resource = BehaviorResource::class;
 }

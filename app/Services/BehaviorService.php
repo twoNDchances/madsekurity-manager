@@ -34,6 +34,10 @@ class BehaviorService
         $routePrefix = null;
         switch ($resourceName)
         {
+            case 'target':
+            case 'engine':
+                $routePrefix = 'filament.manager.positions.resources.' . Str::plural($resourceName);
+                break;
             case 'variable':
             case 'setting':
                 $routePrefix = 'filament.manager.configurations.resources.' . Str::plural($resourceName);

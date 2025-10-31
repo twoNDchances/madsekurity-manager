@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditBehaviorPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveBehaviorPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -22,6 +22,6 @@ trait EditBehaviorPreparation
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

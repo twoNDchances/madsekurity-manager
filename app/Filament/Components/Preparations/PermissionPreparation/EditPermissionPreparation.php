@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditPermissionPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SavePermissionPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -22,6 +22,6 @@ trait EditPermissionPreparation
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

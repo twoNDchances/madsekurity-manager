@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditSettingPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveSettingPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -22,6 +22,6 @@ trait EditSettingPreparation
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

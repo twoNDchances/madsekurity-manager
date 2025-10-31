@@ -6,10 +6,10 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait CreateBehaviorPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveBehaviorPreparation;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

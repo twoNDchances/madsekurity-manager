@@ -24,11 +24,14 @@ class Wordlist extends Model
     protected function casts(): array
     {
         return [
+            'id'          => 'integer',
             'name'        => 'string',
             'words_url'   => 'string',
             'words_count' => 'integer',
             'description' => 'string',
             'user_id'     => 'integer',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 
@@ -45,5 +48,10 @@ class Wordlist extends Model
     public function hasBehaviors()
     {
         return $this->morphMany(Behavior::class, 'resource');
+    }
+
+    public function hasTargets()
+    {
+        return $this->hasMany(Target::class, 'wordlist_id');
     }
 }

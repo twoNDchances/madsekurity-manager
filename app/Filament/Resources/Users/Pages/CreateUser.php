@@ -8,7 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateUser extends CreateRecord
 {
-    use CreateUserPreparation;
+    // use CreateUserPreparation;
 
     protected static string $resource = UserResource::class;
 }

@@ -6,10 +6,10 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait CreatePermissionPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SavePermissionPreparation;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

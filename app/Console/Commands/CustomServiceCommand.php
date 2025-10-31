@@ -28,7 +28,7 @@ class CustomServiceCommand extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $path = App::path("Services/{$name}.php");
+        $path = App::path("Services/{$name}Service.php");
 
         if (File::exists($path))
         {
@@ -41,7 +41,7 @@ class CustomServiceCommand extends Command
 
 namespace App\Services;
 
-class $name
+class {$name}Service
 {
     //
 }

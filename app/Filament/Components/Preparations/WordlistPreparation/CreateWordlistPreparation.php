@@ -6,10 +6,10 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait CreateWordlistPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveWordlistPreparation;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

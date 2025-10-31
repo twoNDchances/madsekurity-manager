@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListUsers extends ListRecords
 {
-    use ListUserPreparation;
+    // use ListUserPreparation;
 
     protected static string $resource = UserResource::class;
 }

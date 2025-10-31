@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditUserPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveUserPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -26,6 +26,6 @@ trait EditUserPreparation
         {
             unset($data['password']);
         }
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

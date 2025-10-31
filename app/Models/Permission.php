@@ -25,10 +25,13 @@ class Permission extends Model
     protected function casts(): array
     {
         return [
+            'id'          => 'integer',
             'name'        => 'string',
             'description' => 'string',
             'action'      => 'string',
             'user_id'     => 'integer',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 

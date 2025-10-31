@@ -23,10 +23,13 @@ class Label extends Model
     protected function casts(): array
     {
         return [
+            'id'          => 'integer',
             'name'        => 'string',
             'color'       => 'string',
             'description' => 'string',
             'user_id'     => 'integer',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 
@@ -68,5 +71,15 @@ class Label extends Model
     public function wordlists()
     {
         return $this->morphedByMany(Wordlist::class, 'labellable');
+    }
+
+    public function engines()
+    {
+        return $this->morphedByMany(Engine::class, 'labellable');
+    }
+
+    public function targets()
+    {
+        return $this->morphedByMany(Target::class, 'labellable');
     }
 }

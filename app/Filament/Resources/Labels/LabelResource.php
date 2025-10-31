@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Labels;
 use App\Filament\Resources\Labels\Pages\CreateLabel;
 use App\Filament\Resources\Labels\Pages\EditLabel;
 use App\Filament\Resources\Labels\Pages\ListLabels;
+use App\Filament\Resources\Labels\RelationManagers\EnginesRelationManager;
 use App\Filament\Resources\Labels\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\Labels\RelationManagers\PoliciesRelationManager;
 use App\Filament\Resources\Labels\RelationManagers\SettingsRelationManager;
@@ -46,6 +47,7 @@ class LabelResource extends Resource
     public static function getRelations(): array
     {
         return [
+            EnginesRelationManager::class,
             WordlistsRelationManager::class,
             UsersRelationManager::class,
             PoliciesRelationManager::class,

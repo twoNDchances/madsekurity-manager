@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditLabelPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveLabelPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -22,6 +22,6 @@ trait EditLabelPreparation
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

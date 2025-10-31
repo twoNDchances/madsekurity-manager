@@ -6,7 +6,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait EditWordlistPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveWordlistPreparation;
 
     protected function getHeaderActions(): array
     {
@@ -22,6 +22,6 @@ trait EditWordlistPreparation
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

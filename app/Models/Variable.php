@@ -25,12 +25,15 @@ class Variable extends Model
     protected function casts(): array
     {
         return [
+            'id'          => 'integer',
             'key'         => 'string',
             'value'       => 'string',
             'is_secret'   => 'boolean',
             'description' => 'string',
             'setting_id'  => 'integer',
             'user_id'     => 'integer',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 

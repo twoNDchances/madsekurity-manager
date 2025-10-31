@@ -8,7 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateBehavior extends CreateRecord
 {
-    use CreateBehaviorPreparation;
+    // use CreateBehaviorPreparation;
 
     protected static string $resource = BehaviorResource::class;
 }

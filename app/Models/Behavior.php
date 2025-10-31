@@ -28,6 +28,7 @@ class Behavior extends Model
     protected function casts(): array
     {
         return [
+            'id'            => 'integer',
             'address'       => 'string',
             'method'        => 'string',
             'headers'       => 'string',
@@ -37,6 +38,8 @@ class Behavior extends Model
             'resource_id'   => 'integer',
             'resource_type' => 'string',
             'user_id'       => 'integer',
+            'created_at'    => 'datetime',
+            'updated_at'    => 'datetime',
         ];
     }
 

@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListVariables extends ListRecords
 {
-    use ListVariablePreparation;
+    // use ListVariablePreparation;
 
     protected static string $resource = VariableResource::class;
 }

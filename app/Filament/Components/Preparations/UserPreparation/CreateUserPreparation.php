@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 trait CreateUserPreparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, SaveUserPreparation;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
@@ -15,6 +15,6 @@ trait CreateUserPreparation
         {
             $data['email_verified_at'] = Carbon::now();
         }
-        return $data;
+        return self::mutateFormDataBefore($data);
     }
 }

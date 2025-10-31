@@ -132,6 +132,7 @@ class CustomComponentCommand extends Command
                 'create' => "{$name}Preparation/Create{$name}Preparation",
                 'edit'   => "{$name}Preparation/Edit{$name}Preparation",
                 'list'   => "{$name}Preparation/List{$name}Preparation",
+                'save'   => "{$name}Preparation/Save{$name}Preparation"
             },
             'table' => match ($withAction)
             {
@@ -156,7 +157,7 @@ class CustomComponentCommand extends Command
         switch ($type)
         {
             case 'preparation':
-                $pathTypes = ['create', 'edit', 'list'];
+                $pathTypes = ['create', 'edit', 'list', 'save'];
                 foreach ($pathTypes as $pathType)
                 {
                     $path = $this->getTemplatePath($name, $type, $pathType) . '.php';
@@ -236,11 +237,11 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait Create{$name}Preparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, Save{$name}Preparation;
 
     protected function mutateFormDataBeforeCreate(array \$data): array
     {
-        return \$data;
+        return self::mutateFormDataBefore(\$data);
     }
 }
 
@@ -254,7 +255,7 @@ use App\Filament\Components\Generals\GeneralPreparation;
 
 trait Edit{$name}Preparation
 {
-    use GeneralPreparation;
+    use GeneralPreparation, Save{$name}Preparation;
 
     protected function getHeaderActions(): array
     {
@@ -270,7 +271,7 @@ trait Edit{$name}Preparation
 
     protected function mutateFormDataBeforeSave(array \$data): array
     {
-        return \$data;
+        return self::mutateFormDataBefore(\$data);
     }
 }
 
@@ -296,6 +297,20 @@ trait List{$name}Preparation
     public function getTabs(): array
     {
         return [];
+    }
+}
+
+PHP,
+<<<PHP
+<?php
+
+namespace {$this->namespacePreparation}\\{$name}Preparation;
+
+trait Save{$name}Preparation
+{
+    public static function mutateFormDataBefore(array \$data): array
+    {
+        return \$data;
     }
 }
 
@@ -368,7 +383,7 @@ PHP,
         switch ($type)
         {
             case 'preparation':
-                $pathTypes = ['create', 'edit', 'list'];
+                $pathTypes = ['create', 'edit', 'list', 'save'];
                 foreach ($pathTypes as $index => $pathType)
                 {
                     $path = $this->getTemplatePath($name, $type, $pathType) . '.php';

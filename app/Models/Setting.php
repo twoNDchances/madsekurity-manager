@@ -22,9 +22,12 @@ class Setting extends Model
     protected function casts(): array
     {
         return [
+            'id'          => 'integer',
             'name'        => 'string',
             'description' => 'string',
             'user_id'     => 'integer',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 
