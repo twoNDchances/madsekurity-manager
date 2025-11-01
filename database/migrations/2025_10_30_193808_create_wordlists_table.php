@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('wordlists', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->index();
-            $table->longText('words_url')->nullable();
-            $table->bigInteger('words_count')->nullable();
+            $table->enum('words_type', ['file', 'text']);
+            $table->longText('words_file')->nullable();
+            $table->longText('words_text')->nullable();
+            $table->unsignedBigInteger('words_count')->nullable();
             $table->longText('description')->nullable();
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
             $table->timestamps();

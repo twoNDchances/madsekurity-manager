@@ -8,7 +8,7 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditVariable extends EditRecord
 {
-    // use EditVariablePreparation;
+    use EditVariablePreparation;
 
     protected static string $resource = VariableResource::class;
 }

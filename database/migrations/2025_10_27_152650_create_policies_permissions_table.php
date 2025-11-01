@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('policies_permissions', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('policy_id')->constrained('policies')->cascadeOnDelete();
             $table->foreignId('permission_id')->constrained('permissions')->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

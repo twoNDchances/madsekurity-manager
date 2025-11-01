@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PolicySeeder::class,
             SettingSeeder::class,
             VariableSeeder::class,
+            ContextSeeder::class,
         ]);
     }
 }

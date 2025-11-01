@@ -3,6 +3,7 @@
 namespace App\Observers\EngineObservers;
 
 use App\Models\Engine;
+use App\Schemas\EngineSchema;
 use App\Services\IdentificationService;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,11 @@ trait BeforeObserver
     public function saving(Engine $engine): void
     {
         $engine->name = Str::slug($engine->name);
+
+        if (!in_array($engine->type, ['indexOf', ...EngineSchema::$typesOfDatatypes['number'], 'hash']))
+        {
+            $engine->configuration = null;
+        }
     }
 
     /**

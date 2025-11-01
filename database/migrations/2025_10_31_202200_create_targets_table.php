@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique()->index();
             $table->integer('phase');
-            $table->enum('type', ['target', 'getter', 'header', 'query', 'body', 'file']);
+            $table->enum('type', ['getter', 'full', 'header', 'meta', 'query', 'body', 'file']);
             $table->enum('datatype', ['array', 'number', 'string']);
+            $table->boolean('is_context')->default(false);
+            $table->foreignId('context_id')->nullable()->index()->constrained('contexts')->nullOnDelete();
             $table->longText('description')->nullable();
-            $table->boolean('is_mutable')->default(true);
-            $table->foreignId('engine_id')->nullable()->index()->constrained('engines')->nullOnDelete();
-            $table->foreignId('target_id')->nullable()->index()->constrained('targets')->nullOnDelete();
             $table->foreignId('wordlist_id')->nullable()->index()->constrained('wordlists')->nullOnDelete();
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
             $table->timestamps();

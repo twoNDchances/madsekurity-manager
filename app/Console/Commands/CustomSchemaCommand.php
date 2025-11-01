@@ -13,7 +13,7 @@ class CustomSchemaCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'custom:schema {name}';
+    protected $signature = 'custom:schema {name} {--type=personal}';
 
     /**
      * The console command description.
@@ -28,25 +28,57 @@ class CustomSchemaCommand extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $path = App::path("Schemas/{$name}Schema.php");
+        $type = $this->option('type');
 
-        if (File::exists($path))
+        switch ($type)
         {
-            $this->error("{$path} already exist!");
-            return;
-        }
+            case 'general':
+                $path      = App::path("Schemas/Generals/$name.php");
+                $namespace = 'App\\Schemas\\Generals';
 
-        $content = <<<PHP
+                if (File::exists($path))
+                {
+                    $this->error("{$path} already exist!");
+                    return;
+                }
+                $content = <<<PHP
 <?php
 
-namespace App\Schemas;
+namespace $namespace;
 
-class {$name}Schema
+trait $name
 {
     //
 }
 
 PHP;
+                break;
+            case 'personal':
+                $path      = App::path("Schemas/{$name}Schema.php");
+                $namespace = 'App\\Schemas';
+
+                if (File::exists($path))
+                {
+                    $this->error("{$path} already exist!");
+                    return;
+                }
+
+                $content = <<<PHP
+<?php
+
+namespace $namespace;
+
+class {$name}Schema
+{
+    //
+}
+PHP;
+                break;
+            default:
+                $this->error('"--type" option must in ["personal", "general"]');
+                return;
+        }
+
         File::ensureDirectoryExists(File::dirname($path));
         File::put($path, $content);
     }

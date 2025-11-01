@@ -44,11 +44,14 @@ class EngineForm
                     self::outputDatatype(),
                 ]),
 
-                Components\Section::make('Engine Labels')
+                Components\Grid::make(1)
                 ->columnSpan(1)
-                ->columns(1)
                 ->schema([
-                    self::labels(),
+                    Components\Section::make('Engine Labels')
+                    ->columnSpan(1)
+                    ->schema([
+                        self::labels(),
+                    ]),
                 ]),
             ]),
         ];

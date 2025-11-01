@@ -3,6 +3,7 @@
 namespace App\Filament\Components\Tables\BehaviorTable;
 
 use App\Filament\Components\Generals\GeneralTable;
+use App\Schemas\BehaviorSchema;
 use App\Services\BehaviorService;
 
 trait BehaviorTable
@@ -17,15 +18,8 @@ trait BehaviorTable
     public static function method()
     {
         return self::textColumn('method')
-        ->color(fn($state) => match ($state)
-        {
-            'GET'    => 'success',
-            'POST'   => 'warning',
-            'PUT'    => 'info',
-            'PATCH'  => 'primary',
-            'DELETE' => 'danger',
-            default  => 'pink',
-        })
+        ->formatStateUsing(fn ($state) => BehaviorSchema::$methods['options'][$state])
+        ->color(fn($state) => BehaviorSchema::$methods['colors'][$state])
         ->badge();
     }
 
@@ -37,13 +31,8 @@ trait BehaviorTable
     public static function behaviorAction()
     {
         return self::textColumn('action')
-        ->color(fn ($state) => match ($state)
-        {
-            'Create' => 'success',
-            'Update' => 'info',
-            'Delete' => 'danger',
-            default  => 'warning',
-        })
+        ->formatStateUsing(fn ($state) => BehaviorSchema::$actions['options'][$state])
+        ->color(fn($state) => BehaviorSchema::$actions['colors'][$state])
         ->badge();
     }
 

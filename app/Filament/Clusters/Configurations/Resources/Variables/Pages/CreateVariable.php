@@ -8,7 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateVariable extends CreateRecord
 {
-    // use CreateVariablePreparation;
+    use CreateVariablePreparation;
 
     protected static string $resource = VariableResource::class;
 }

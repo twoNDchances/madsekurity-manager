@@ -13,6 +13,13 @@ class TargetsTable
     {
         return $table
         ->columns([
+            self::name(),
+            self::phase(),
+            self::type(),
+            self::isContext(),
+            self::contextId(),
+            self::datatype(),
+            self::wordlistId(),
             self::labels(),
             self::owner(),
             self::createdAt(),

@@ -54,8 +54,10 @@ class Engine extends Model
         return $this->morphMany(Behavior::class, 'resource');
     }
 
-    public function hasTargets()
+    public function targets()
     {
-        return $this->hasMany(Target::class, 'engine_id');
+        return $this->belongsToMany(Target::class, 'targets_engines')
+        ->withPivot('priority')
+        ->orderBy('priority');
     }
 }

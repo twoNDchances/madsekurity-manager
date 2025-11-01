@@ -2,52 +2,90 @@
 
 namespace App\Schemas;
 
+use App\Schemas\Generals\Datatype;
+use App\Schemas\Generals\Phase;
+use App\Schemas\Generals\Type;
+
 class TargetSchema
 {
-    public static $phases = [
-        'colors' => [
-            1 => 'indigo',
-            2 => 'primary',
-            3 => 'rose',
-            4 => 'danger',
-        ],
-        'options' => [
-            1 => '1. Request: Headers',
-            2 => '2. Request: Body',
-            3 => '3. Response: Headers',
-            4 => '4. Response: Body',
-        ],
-    ];
+    use Datatype, Phase, Type;
 
-    public static $types = [
-        'colors' => [
-            'target' => 'purple',
-            'getter' => 'pink',
-            'header' => 'info',
-            'query'  => 'warning',
-            'body'   => 'sky',
-            'file'   => 'teal',
+    public static $typesOfPhases = [
+        0 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+            ],
         ],
-        'options' => [
-            'target' => 'Target',
-            'getter' => 'Getter',
-            'header' => 'Header',
-            'query'  => 'Query',
-            'body'   => 'Body',
-            'file'   => 'File',
+        1 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+                'header' => 'info',
+                'meta'   => 'danger',
+                'query'  => 'warning',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+                'header' => 'Header',
+                'meta'   => 'Meta',
+                'query'  => 'Query',
+            ],
         ],
-    ];
-
-    public static $datatypes = [
-        'colors' => [
-            'array'  => 'warning',
-            'number' => 'success',
-            'string' => 'info',
+        2 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+                'body'   => 'sky',
+                'file'   => 'teal',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+                'body'   => 'Body',
+                'file'   => 'File',
+            ],
         ],
-        'options' => [
-            'array'  => 'Array',
-            'number' => 'Number',
-            'string' => 'String',
+        3 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+                'header' => 'info',
+                'meta'   => 'danger',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+                'header' => 'Header',
+                'meta'   => 'Meta',
+            ],
+        ],
+        4 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+                'body'   => 'sky',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+                'body'   => 'Body',
+            ],
+        ],
+        5 => [
+            'colors' => [
+                'getter' => 'purple',
+                'full'   => 'gray',
+            ],
+            'options' => [
+                'getter' => 'Getter',
+                'full'   => 'Full',
+            ],
         ],
     ];
 }

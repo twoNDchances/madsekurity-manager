@@ -4,8 +4,7 @@ namespace App\Observers\WordlistObservers;
 
 use App\Models\Wordlist;
 use App\Services\IdentificationService;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use App\Services\WordlistService;
 use Illuminate\Support\Str;
 
 trait BeforeObserver
@@ -16,9 +15,7 @@ trait BeforeObserver
     public function saving(Wordlist $wordlist): void
     {
         $wordlist->name        = Str::slug($wordlist->name);
-        $wordlist->words_count = File::lines(Storage::path($wordlist->words_url))
-        ->filter(fn ($line) => Str::length(Str::trim($line)) != 0)
-        ->count();
+        $wordlist->words_count = count(WordlistService::getWords($wordlist));
     }
 
     /**

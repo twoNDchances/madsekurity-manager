@@ -26,9 +26,21 @@ class WordlistForm
                 ->columnSpan(2)
                 ->columns(2)
                 ->schema([
-                    self::name(),
-                    self::wordsUrl(),
-                    self::description()->columnSpanFull(),
+                    Components\Grid::make(1)
+                    ->columnSpan(1)
+                    ->schema([
+                        self::name(),
+                        self::description(),
+                    ]),
+
+                    Components\Fieldset::make('Words')
+                    ->columnSpan(1)
+                    ->columns(1)
+                    ->schema([
+                        self::wordsType(),
+                        self::wordsFile(),
+                        self::wordsText(),
+                    ]),
                 ]),
 
                 Components\Section::make('Wordlist Labels')

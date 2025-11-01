@@ -31,7 +31,7 @@ trait EngineForm
     public static function type()
     {
         return self::select('type')
-        ->options(fn ($get) => EngineSchema::$types[$get('input_datatype')])
+        ->options(fn ($get) => EngineSchema::$typesOfDatatypes[$get('input_datatype')])
         ->afterStateUpdated(fn ($state, $set) => match ($state)
         {
             'addition',
@@ -70,7 +70,7 @@ trait EngineForm
 
     public static function number()
     {
-        $condition = fn ($get) => in_array($get('type'), array_keys(EngineSchema::$types['number']));
+        $condition = fn ($get) => in_array($get('type'), array_keys(EngineSchema::$typesOfDatatypes['number']));
         return self::textInput('number', placeholder: 'Engine Number')
         ->helperText(fn ($get) => 'A number used for ' . $get('type') . '.')
         ->disabled(fn ($get) => !$condition($get))

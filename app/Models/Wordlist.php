@@ -11,7 +11,9 @@ class Wordlist extends Model
 {
     protected $fillable = [
         'name',
-        'words_url',
+        'words_type',
+        'words_file',
+        'words_text',
         'words_count',
         'description',
         'user_id',
@@ -26,7 +28,9 @@ class Wordlist extends Model
         return [
             'id'          => 'integer',
             'name'        => 'string',
-            'words_url'   => 'string',
+            'words_type'  => 'string',
+            'words_text'  => 'string',
+            'words_file'  => 'string',
             'words_count' => 'integer',
             'description' => 'string',
             'user_id'     => 'integer',

@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users_policies', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('policy_id')->constrained('policies')->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

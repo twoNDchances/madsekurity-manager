@@ -147,4 +147,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wordlist::class, 'user_id');
     }
+
+    public function hasEngines()
+    {
+        return $this->hasMany(Engine::class, 'user_id');
+    }
+
+    public function hasTargets()
+    {
+        return $this->hasMany(Target::class, 'user_id');
+    }
 }

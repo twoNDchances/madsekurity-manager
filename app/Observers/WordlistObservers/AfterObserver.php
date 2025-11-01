@@ -13,12 +13,12 @@ trait AfterObserver
      */
     public function saved(Wordlist $wordlist): void
     {
-        if ($wordlist->isDirty('words_url'))
+        if ($wordlist->isDirty('words_file'))
         {
-            $originalWordsUrl = $wordlist->getOriginal('words_url');
-            if ($originalWordsUrl)
+            $originalwordsFile = $wordlist->getOriginal('words_file');
+            if ($originalwordsFile)
             {
-                Storage::delete($originalWordsUrl);
+                Storage::delete($originalwordsFile);
             }
         }
     }
@@ -45,10 +45,10 @@ trait AfterObserver
     public function deleted(Wordlist $wordlist): void
     {
         BehaviorService::perform($wordlist, 'Delete');
-        $wordsUrl = $wordlist->words_url;
-        if ($wordsUrl)
+        $wordsFile = $wordlist->words_file;
+        if ($wordsFile)
         {
-            Storage::delete($wordsUrl);
+            Storage::delete($wordsFile);
         }
     }
 

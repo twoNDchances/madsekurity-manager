@@ -24,4 +24,9 @@ trait VariableTable
         return self::textColumn('value', 'Length of Value')
         ->formatStateUsing(fn ($record) => Str::length($record->value));
     }
+
+    public static function settingId()
+    {
+        return self::textColumn('setting.name', 'Setting');
+    }
 }

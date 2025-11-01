@@ -14,6 +14,7 @@ class WordlistsTable
         return $table
         ->columns([
             self::name(),
+            self::wordsType(),
             self::wordsCount(),
             self::labels(),
             self::owner(),

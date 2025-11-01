@@ -50,6 +50,12 @@ class Permission extends Model
             'create',
             'update',
         ],
+        'context' => [
+            'create',
+            'update',
+            'deleteAny',
+            'delete',
+        ],
     ];
 
     public static function getPolicyPermissionOptions(): array

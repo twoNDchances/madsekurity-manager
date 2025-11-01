@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Observers\TargetObservers\TargetObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy(TargetObserver::class)]
 class Target extends Model
 {
     protected $fillable = [
@@ -12,8 +15,8 @@ class Target extends Model
         'type',
         'datatype',
         'description',
-        'is_mutable',
-        'engine_id',
+        'is_context',
+        'context_id',
         'target_id',
         'wordlist_id',
         'user_id',
@@ -32,9 +35,8 @@ class Target extends Model
             'type'        => 'string',
             'datatype'    => 'string',
             'description' => 'string',
-            'is_mutable'  => 'boolean',
-            'engine_id'   => 'integer',
-            'target_id'   => 'integer',
+            'is_context'  => 'boolean',
+            'context_id'  => 'integer',
             'wordlist_id' => 'integer',
             'user_id'     => 'integer',
             'created_at'  => 'datetime',
@@ -72,8 +74,15 @@ class Target extends Model
         return $this->belongsTo(Wordlist::class, 'wordlist_id');
     }
 
-    public function engine()
+    public function engines()
     {
-        return $this->belongsTo(Engine::class, 'engine_id');
+        return $this->belongsToMany(Engine::class, 'targets_engines')
+        ->withPivot('priority')
+        ->orderBy('priority');
+    }
+
+    public function context()
+    {
+        return $this->belongsTo(Context::class, 'context_id');
     }
 }

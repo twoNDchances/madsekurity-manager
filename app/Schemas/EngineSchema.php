@@ -2,22 +2,13 @@
 
 namespace App\Schemas;
 
+use App\Schemas\Generals\Datatype;
+
 class EngineSchema
 {
-    public static $datatypes = [
-        'colors' => [
-            'array'  => 'warning',
-            'number' => 'success',
-            'string' => 'info',
-        ],
-        'options' => [
-            'array'  => 'Array',
-            'number' => 'Number',
-            'string' => 'String',
-        ],
-    ];
+    use Datatype;
 
-    public static $types = [
+    public static $typesOfDatatypes = [
         'array' => [
             'indexOf' => 'Index Of ([...][i])',
         ],
