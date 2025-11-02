@@ -30,11 +30,6 @@ trait TargetTable
         ->badge();
     }
 
-    public static function isContext()
-    {
-        return self::booleanColumn('is_context', 'Is Context');
-    }
-
     public static function contextId()
     {
         return self::textColumn('context.name', 'Context');
@@ -51,5 +46,10 @@ trait TargetTable
     public static function wordlistId()
     {
         return self::textColumn('wordlist.name', 'Wordlist');
+    }
+
+    public static function engines()
+    {
+        return self::relationshipColumn('engines.name', 'Engines');
     }
 }

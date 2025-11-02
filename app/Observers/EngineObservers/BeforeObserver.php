@@ -20,6 +20,27 @@ trait BeforeObserver
         {
             $engine->configuration = null;
         }
+
+        $engine->output_datatype = match ($engine->type)
+        {
+            'addition',
+            'subtraction',
+            'multiplication',
+            'division',
+            'powerOf',
+            'remainder',
+            'length'            => 'number',
+
+            'indexOf',
+            'lower',
+            'upper',
+            'capitalize',
+            'trim',
+            'trimLeft',
+            'trimRight',
+            'removeWhitespace',
+            'hash'              => 'string',
+        };
     }
 
     /**

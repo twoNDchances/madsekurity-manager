@@ -17,6 +17,7 @@ class EnginesTable
             self::inputDatatype(),
             self::type(),
             self::outputDatatype(),
+            self::targets(),
             self::labels(),
             self::owner(),
             self::createdAt(),

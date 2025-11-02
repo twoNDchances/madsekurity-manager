@@ -35,4 +35,9 @@ trait EngineTable
         ->color(fn ($state) => EngineSchema::$datatypes['colors'][$state])
         ->badge();
     }
+
+    public static function targets()
+    {
+        return self::relationshipColumn('targets.name', 'Targets');
+    }
 }

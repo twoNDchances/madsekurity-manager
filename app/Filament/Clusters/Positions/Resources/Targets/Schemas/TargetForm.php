@@ -32,7 +32,6 @@ class TargetForm
                         Components\Grid::make(1)
                         ->schema([
                             self::type(),
-                            self::isContext(),
                             self::contextId(),
                         ]),
                     ]),

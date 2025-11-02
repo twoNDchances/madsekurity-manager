@@ -29,16 +29,19 @@ class FileTextCheckingRule implements ValidationRule
         $chunk = fread($handle, 8192);
         fclose($handle);
 
-        if ($chunk === false || trim($chunk) === '') {
+        if ($chunk === false || trim($chunk) === '')
+        {
             $fail("$attribute is empty");
             return;
         }
 
         $printable = 0;
         $len = Str::length($chunk);
-        for ($i = 0; $i < $len; $i++) {
-            $ord = ord($chunk[$i]);
-            if (($ord >= 32 && $ord <= 126) || in_array($ord, [9, 10, 13])) {
+        for ($index = 0; $index < $len; $index++)
+        {
+            $ord = ord($chunk[$index]);
+            if (($ord >= 32 && $ord <= 126) || in_array($ord, [9, 10, 13]))
+            {
                 $printable++;
             }
         }

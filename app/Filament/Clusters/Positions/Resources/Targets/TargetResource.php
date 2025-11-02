@@ -6,6 +6,7 @@ use App\Filament\Clusters\Positions\PositionsCluster;
 use App\Filament\Clusters\Positions\Resources\Targets\Pages\CreateTarget;
 use App\Filament\Clusters\Positions\Resources\Targets\Pages\EditTarget;
 use App\Filament\Clusters\Positions\Resources\Targets\Pages\ListTargets;
+use App\Filament\Clusters\Positions\Resources\Targets\RelationManagers\EnginesRelationManager;
 use App\Filament\Clusters\Positions\Resources\Targets\Schemas\TargetForm;
 use App\Filament\Clusters\Positions\Resources\Targets\Tables\TargetsTable;
 use App\Models\Target;
@@ -40,7 +41,7 @@ class TargetResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EnginesRelationManager::class,
         ];
     }
 

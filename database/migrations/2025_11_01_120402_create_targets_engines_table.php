@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('targets_engines', function (Blueprint $table) {
+            $table->bigIncrements('order');
             $table->foreignId('target_id')->constrained('targets')->cascadeOnDelete();
             $table->foreignId('engine_id')->constrained('engines')->cascadeOnDelete();
-            $table->unsignedBigInteger('priority')->nullable();
         });
     }
 

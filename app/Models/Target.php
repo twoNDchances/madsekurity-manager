@@ -15,7 +15,6 @@ class Target extends Model
         'type',
         'datatype',
         'description',
-        'is_context',
         'context_id',
         'target_id',
         'wordlist_id',
@@ -35,7 +34,6 @@ class Target extends Model
             'type'        => 'string',
             'datatype'    => 'string',
             'description' => 'string',
-            'is_context'  => 'boolean',
             'context_id'  => 'integer',
             'wordlist_id' => 'integer',
             'user_id'     => 'integer',
@@ -76,9 +74,7 @@ class Target extends Model
 
     public function engines()
     {
-        return $this->belongsToMany(Engine::class, 'targets_engines')
-        ->withPivot('priority')
-        ->orderBy('priority');
+        return $this->belongsToMany(Engine::class, 'targets_engines')->orderBy('order');
     }
 
     public function context()

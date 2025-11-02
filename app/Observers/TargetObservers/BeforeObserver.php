@@ -2,6 +2,7 @@
 
 namespace App\Observers\TargetObservers;
 
+use App\Models\Context;
 use App\Models\Target;
 use App\Services\IdentificationService;
 use Illuminate\Support\Str;
@@ -14,6 +15,12 @@ trait BeforeObserver
     public function saving(Target $target): void
     {
         $target->name = Str::slug($target->name);
+
+        if ($target->context_id)
+        {
+            $context          = Context::find($target->context_id);
+            $target->datatype = $context->datatype;
+        }
     }
 
     /**
