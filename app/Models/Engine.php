@@ -56,6 +56,8 @@ class Engine extends Model
 
     public function targets()
     {
-        return $this->belongsToMany(Target::class, 'targets_engines')->orderBy('order');
+        return $this->belongsToMany(Target::class, 'targets_engines')
+        ->withPivot('order')
+        ->orderBy('order');
     }
 }

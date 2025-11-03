@@ -20,6 +20,10 @@ class EnginesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return EnginesTable::configure($table)
-        ->recordTitleAttribute('name');
+        ->headerActions(EnginesTable::relationManagerHeaderActionGroup(false))
+        ->recordActions(EnginesTable::relationManagerRecordActionGroup())
+        ->toolbarActions(EnginesTable::relationManagerToolbarActionGroup())
+        ->recordTitleAttribute('name')
+        ->reorderable('order');
     }
 }

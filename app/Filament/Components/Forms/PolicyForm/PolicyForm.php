@@ -4,7 +4,6 @@ namespace App\Filament\Components\Forms\PolicyForm;
 
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Permissions\Schemas\PermissionForm;
-use App\Filament\Resources\Users\Schemas\UserForm;
 
 trait PolicyForm
 {
@@ -33,7 +32,7 @@ trait PolicyForm
 
         return match ($create)
         {
-            true  => $field->createOptionForm(UserForm::main(false)),
+            true  => $field->suffixAction(self::openUserForm()),
             false => $field,
         };
     }

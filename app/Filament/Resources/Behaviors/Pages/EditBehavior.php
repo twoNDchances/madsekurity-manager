@@ -8,7 +8,7 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditBehavior extends EditRecord
 {
-    // use EditBehaviorPreparation;
+    use EditBehaviorPreparation;
 
     protected static string $resource = BehaviorResource::class;
 }

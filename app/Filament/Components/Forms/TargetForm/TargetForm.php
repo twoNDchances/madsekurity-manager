@@ -2,11 +2,9 @@
 
 namespace App\Filament\Components\Forms\TargetForm;
 
-use App\Filament\Clusters\Positions\Resources\Engines\Schemas\EngineForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Wordlists\Schemas\WordlistForm;
 use App\Models\Context;
-use App\Rules\DatatypeTransformingRule;
 use App\Schemas\TargetSchema;
 
 trait TargetForm
@@ -86,15 +84,13 @@ trait TargetForm
     public static function engines($create = true)
     {
         $field = self::select('engines')
-        ->rule(fn ($get) => new DatatypeTransformingRule($get('datatype'), 'target'))
-        ->afterStateUpdated(fn ($record) => $record ? $record->engines()->detach() : null)
         ->helperText('Select multiple Engines for Target Definition.')
         ->relationship('engines', 'name')
         ->multiple();
 
         return match ($create)
         {
-            true  => $field->createOptionForm(EngineForm::main(false)),
+            true  => $field->suffixAction(self::openEngineForm()),
             false => $field,
         };
     }

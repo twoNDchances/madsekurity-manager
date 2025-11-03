@@ -16,7 +16,7 @@ trait BeforeObserver
     {
         $engine->name = Str::slug($engine->name);
 
-        if (!in_array($engine->type, ['indexOf', ...EngineSchema::$typesOfDatatypes['number'], 'hash']))
+        if (!in_array($engine->type, ['indexOf', ...array_keys(EngineSchema::$typesOfDatatypes['number']), 'hash']))
         {
             $engine->configuration = null;
         }

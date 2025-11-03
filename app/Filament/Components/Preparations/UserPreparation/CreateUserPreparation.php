@@ -9,6 +9,7 @@ trait CreateUserPreparation
 {
     use GeneralPreparation, SaveUserPreparation;
 
+    // Complex preparation
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (isset($data['must_verify']) && $data['must_verify'] == false)

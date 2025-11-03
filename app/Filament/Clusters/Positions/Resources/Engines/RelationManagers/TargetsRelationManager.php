@@ -20,6 +20,9 @@ class TargetsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return TargetsTable::configure($table)
+        ->headerActions(TargetsTable::relationManagerHeaderActionGroup())
+        ->recordActions(TargetsTable::relationManagerRecordActionGroup())
+        ->toolbarActions(TargetsTable::relationManagerToolbarActionGroup())
         ->recordTitleAttribute('name');
     }
 }

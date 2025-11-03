@@ -4,7 +4,6 @@ namespace App\Filament\Components\Forms\EngineForm;
 
 use App\Filament\Clusters\Positions\Resources\Targets\Schemas\TargetForm;
 use App\Filament\Components\Generals\GeneralForm;
-use App\Rules\DatatypeTransformingRule;
 use App\Schemas\EngineSchema;
 
 trait EngineForm
@@ -110,7 +109,6 @@ trait EngineForm
         $field = self::select('targets')
         ->helperText('Select multiple Targets for Engine Definition.')
         ->relationship('targets', 'name')
-        ->rule(fn ($get) => new DatatypeTransformingRule($get('input_datatype'), 'engine'))
         ->multiple();
 
         return match ($create)

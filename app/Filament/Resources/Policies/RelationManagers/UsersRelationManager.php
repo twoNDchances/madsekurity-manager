@@ -20,7 +20,7 @@ class UsersRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return UsersTable::configure($table)
-        ->headerActions(UsersTable::relationManagerHeaderActionGroup())
+        ->headerActions(UsersTable::relationManagerHeaderActionGroup(false))
         ->recordActions(UsersTable::relationManagerRecordActionGroup())
         ->toolbarActions(UsersTable::relationManagerToolbarActionGroup())
         ->recordTitleAttribute('email');

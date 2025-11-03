@@ -24,7 +24,7 @@ class SettingsTable
             //
         ])
         ->recordActions([
-            self::actionGroup(more: [self::cloneSetting()]),
+            self::actionGroup(),
         ])
         ->toolbarActions([
             self::bulkActionGroup(),

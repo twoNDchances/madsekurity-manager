@@ -20,6 +20,7 @@ trait EditUserPreparation
         return $data;
     }
 
+    // Complex preparation
     protected function mutateFormDataBeforeSave(array $data): array
     {
         if (!isset($data['password']))
