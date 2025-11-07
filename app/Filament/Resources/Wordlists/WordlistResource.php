@@ -25,7 +25,7 @@ class WordlistResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Managements';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 6;
 
     public static function form(Schema $schema): Schema
     {

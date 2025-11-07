@@ -4,7 +4,6 @@ namespace App\Filament\Components\Tables\WordlistTable;
 
 use App\Filament\Components\Generals\GeneralTable;
 use App\Schemas\WordlistSchema;
-use Illuminate\Support\Str;
 
 trait WordlistTable
 {
@@ -18,8 +17,8 @@ trait WordlistTable
     public static function wordsType()
     {
         return self::textColumn('words_type', 'Words Type')
+        ->formatStateUsing(fn ($state) => WordlistSchema::$wordsType['options'][$state])
         ->color(fn ($state) => WordlistSchema::$wordsType['colors'][$state])
-        ->formatStateUsing(fn ($state) => Str::ucfirst($state))
         ->badge();
     }
 

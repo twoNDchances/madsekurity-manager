@@ -20,7 +20,7 @@ class SettingRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return SettingsTable::configure($table)
-        ->recordActions(SettingsTable::actionGroup())
+        ->recordActions(SettingsTable::actionGroup(more: [SettingsTable::cloneSetting()]))
         ->toolbarActions(SettingsTable::bulkActionGroup())
         ->recordTitleAttribute('name');
     }

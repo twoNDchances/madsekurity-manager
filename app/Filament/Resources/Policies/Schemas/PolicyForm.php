@@ -37,7 +37,7 @@ class PolicyForm
                 ->schema([
                     Components\Section::make('Policy Users')
                     ->schema([
-                        self::users($user)
+                        self::users($user),
                     ]),
 
                     Components\Section::make('Policy Labels')

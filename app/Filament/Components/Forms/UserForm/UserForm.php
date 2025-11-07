@@ -88,15 +88,15 @@ trait UserForm
 
     public static function policies($create = true)
     {
-        $field = self::select('policies')
-        ->helperText('Select multiple Policies for User Definition.')
-        ->relationship('policies', 'name')
-        ->multiple();
-
-        return match ($create)
-        {
-            true  => $field->createOptionForm(PolicyForm::main(false, false)),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('policies')
+            ->helperText('Select multiple Policies for User Definition.')
+            ->relationship('policies', 'name')
+            ->multiple(),
+            fn () => PolicyForm::main(false, false),
+            'policy',
+            'modal',
+            $create,
+        );
     }
 }

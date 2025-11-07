@@ -27,7 +27,7 @@ class ManagerPanelProvider extends PanelProvider
         return $panel
         ->default()
         ->id('manager')
-        ->path(Env::get('MANAGER_ADMIN_PATH_PREFIX'))
+        ->path(Env::get('MANAGER_ADMIN_PATH_PREFIX', 'manager'))
         ->login()
         ->colors([
             'cyan'    => Color::Cyan,

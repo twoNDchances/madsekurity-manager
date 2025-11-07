@@ -4,6 +4,7 @@ namespace App\Filament\Components\Forms\VariableForm;
 
 use App\Filament\Clusters\Configurations\Resources\Settings\Schemas\SettingForm;
 use App\Filament\Components\Generals\GeneralForm;
+use App\Services\IdentificationService;
 
 trait VariableForm
 {
@@ -42,14 +43,14 @@ trait VariableForm
 
     public static function setting($create = true)
     {
-        $field = self::select('setting_id')
-        ->relationship('setting', 'name')
-        ->required();
-
-        return match ($create)
-        {
-            true  => $field->createOptionForm(SettingForm::main(false)),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('setting_id')
+            ->relationship('setting', 'name')
+            ->required(),
+            fn() => SettingForm::main(false),
+            'setting',
+            'modal',
+            $create,
+        );
     }
 }

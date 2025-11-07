@@ -6,6 +6,7 @@ use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Wordlists\Schemas\WordlistForm;
 use App\Models\Context;
 use App\Schemas\TargetSchema;
+use App\Services\IdentificationService;
 
 trait TargetForm
 {
@@ -68,12 +69,16 @@ trait TargetForm
     public static function wordlistId()
     {
         $condition = fn ($get) => $get('datatype') == 'array' && !$get('context_id');
-        return self::select('wordlist_id', 'Wordlist')
-        ->disabled(fn ($get) => !$condition($get))
-        ->relationship('wordlist', 'name')
-        ->createOptionForm(WordlistForm::main())
-        ->required($condition)
-        ->visible($condition);
+        return IdentificationService::use(
+            self::select('wordlist_id', 'Wordlist')
+            ->disabled(fn ($get) => !$condition($get))
+            ->relationship('wordlist', 'name')
+            ->required($condition)
+            ->visible($condition),
+            fn() => WordlistForm::main(),
+            'wordlist',
+            'modal',
+        );
     }
 
     public static function description()
@@ -83,15 +88,15 @@ trait TargetForm
 
     public static function engines($create = true)
     {
-        $field = self::select('engines')
-        ->helperText('Select multiple Engines for Target Definition.')
-        ->relationship('engines', 'name')
-        ->multiple();
-
-        return match ($create)
-        {
-            true  => $field->suffixAction(self::openEngineForm()),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('engines')
+            ->helperText('Select multiple Engines for Target Definition.')
+            ->relationship('engines', 'name')
+            ->multiple(),
+            fn() => self::openEngineForm(),
+            'engine',
+            'open',
+            $create,
+        );
     }
 }

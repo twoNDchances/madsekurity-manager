@@ -16,6 +16,17 @@ trait BeforeObserver
     {
         $wordlist->name        = Str::slug($wordlist->name);
         $wordlist->words_count = count(WordlistService::getWords($wordlist));
+        switch ($wordlist->words_type)
+        {
+            case 'file':
+                $wordlist->words_text = null;
+                break;
+            case 'text':
+                $wordlist->words_file = null;
+                break;
+            default:
+                break;
+        }
     }
 
     /**

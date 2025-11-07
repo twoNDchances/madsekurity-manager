@@ -39,4 +39,26 @@ class IdentificationService
         }
         return $user->hasPermission("$resource.$action");
     }
+
+    public static function use($field, $definition, $resource, $type, $create = true)
+    {
+        $user = self::getUser();
+        if (!self::can($user, $resource, 'viewAny'))
+        {
+            $field = $field->disabled();
+        }
+        if (self::can($user, $resource, 'create'))
+        {
+            if ($create)
+            {
+                $field = match ($type)
+                {
+                    'modal' => $field->createOptionForm($definition),
+                    'open'  => $field->suffixAction($definition),
+                    default => $field,
+                };
+            }
+        }
+        return $field;
+    }
 }

@@ -157,4 +157,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Target::class, 'user_id');
     }
+
+    public function hasActions()
+    {
+        return $this->hasMany(Action::class, 'user_id');
+    }
+
+    public function hasContents()
+    {
+        return $this->hasMany(Content::class, 'user_id');
+    }
 }

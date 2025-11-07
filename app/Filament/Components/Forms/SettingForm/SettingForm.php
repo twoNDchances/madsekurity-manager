@@ -4,6 +4,7 @@ namespace App\Filament\Components\Forms\SettingForm;
 
 use App\Filament\Clusters\Configurations\Resources\Variables\Schemas\VariableForm;
 use App\Filament\Components\Generals\GeneralForm;
+use App\Services\IdentificationService;
 
 trait SettingForm
 {
@@ -25,14 +26,14 @@ trait SettingForm
 
     public static function hasVariables($create = true)
     {
-        $field = self::select('has_variables', 'Variables')
-        ->relationship('hasVariables', 'key')
-        ->multiple();
-
-        return match ($create)
-        {
-            true  => $field->createOptionForm(VariableForm::main(false)),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('has_variables', 'Variables')
+            ->relationship('hasVariables', 'key')
+            ->multiple(),
+            fn() => VariableForm::main(false),
+            'variable',
+            'modal',
+            $create,
+        );
     }
 }

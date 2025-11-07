@@ -5,6 +5,7 @@ namespace App\Filament\Components\Forms\PermissionForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Policies\Schemas\PolicyForm;
 use App\Models\Permission;
+use App\Services\IdentificationService;
 
 trait PermissionForm
 {
@@ -33,15 +34,15 @@ trait PermissionForm
 
     public static function policies($create = true)
     {
-        $field = self::select('policies')
-        ->helperText('Select multiple Policies for Permission Definition.')
-        ->relationship('policies', 'name')
-        ->multiple();
-        
-        return match ($create)
-        {
-            true  => $field->createOptionForm(PolicyForm::main(false, false)),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('policies')
+            ->helperText('Select multiple Policies for Permission Definition.')
+            ->relationship('policies', 'name')
+            ->multiple(),
+            fn() => PolicyForm::main(false, false),
+            'policy',
+            'modal',
+            $create,
+        );
     }
 }

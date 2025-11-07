@@ -10,9 +10,7 @@ use Illuminate\Support\Carbon;
 
 trait SettingAction
 {
-    use GeneralAction {
-        actionGroup as generalActionGroup;
-    }
+    use GeneralAction;
 
     public static function cloneSetting()
     {
@@ -32,10 +30,5 @@ trait SettingAction
             },
         )
         ->color('teal');
-    }
-
-    public static function actionGroup($view = true, $edit = true, $delete = true, $more = [])
-    {
-        return self::generalActionGroup($view, $edit, $delete, [self::cloneSetting(), ...$more]);
     }
 }

@@ -58,4 +58,9 @@ class Wordlist extends Model
     {
         return $this->hasMany(Target::class, 'wordlist_id');
     }
+
+    public function hasActions()
+    {
+        return $this->hasMany(Action::class, 'wordlist_id');
+    }
 }

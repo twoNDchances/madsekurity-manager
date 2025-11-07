@@ -5,6 +5,7 @@ namespace App\Filament\Components\Forms\EngineForm;
 use App\Filament\Clusters\Positions\Resources\Targets\Schemas\TargetForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Schemas\EngineSchema;
+use App\Services\IdentificationService;
 
 trait EngineForm
 {
@@ -41,7 +42,7 @@ trait EngineForm
             'division',
             'powerOf',
             'remainder',
-            'length' => $set('output_datatype', 'number'),
+            'length'            => $set('output_datatype', 'number'),
 
             'indexOf',
             'lower',
@@ -51,7 +52,7 @@ trait EngineForm
             'trimLeft',
             'trimRight',
             'removeWhitespace',
-            'hash' => $set('output_datatype', 'string'),
+            'hash'              => $set('output_datatype', 'string'),
         })
         ->selectablePlaceholder(false)
         ->reactive()
@@ -106,15 +107,15 @@ trait EngineForm
 
     public static function targets($create = true)
     {
-        $field = self::select('targets')
-        ->helperText('Select multiple Targets for Engine Definition.')
-        ->relationship('targets', 'name')
-        ->multiple();
-
-        return match ($create)
-        {
-            true  => $field->createOptionForm(TargetForm::main(false)),
-            false => $field,
-        };
+        return IdentificationService::use(
+            self::select('targets')
+            ->helperText('Select multiple Targets for Engine Definition.')
+            ->relationship('targets', 'name')
+            ->multiple(),
+            fn() => TargetForm::main(false),
+            'target',
+            'modal',
+            $create,
+        );
     }
 }

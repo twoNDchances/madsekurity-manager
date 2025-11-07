@@ -82,4 +82,14 @@ class Label extends Model
     {
         return $this->morphedByMany(Target::class, 'labellable');
     }
+
+    public function actions()
+    {
+        return $this->morphedByMany(Action::class, 'labellable');
+    }
+
+    public function contents()
+    {
+        return $this->morphedByMany(Content::class, 'labellable');
+    }
 }
