@@ -54,13 +54,25 @@ class ActionForm
                         // Suspect
                         self::suspectSeverity()->columnSpanFull(),
 
-                        // Getter
-                        self::setterVariables()->columnSpanFull(),
+                        // Setter
+                        self::shareDirective(),
+                        self::shareKeysFromWordlistId($wordlist),
+                        self::shareVariables()->columnSpanFull(),
 
                         // Header
                         self::headerDirective(),
-                        self::headerHeadersFromWordlistId($wordlist),
-                        self::headerModifications()->columnSpanFull(),
+                        self::headerKeysFromWordlistId($wordlist),
+                        self::headerSets()->columnSpanFull(),
+
+                        // Body
+                        self::bodyDirective(),
+                        self::bodySets()->columnSpanFull(),
+                        self::bodyUnsets()->columnSpanFull(),
+
+                        // Score
+                        self::scoreDirective(),
+                        self::scoreNumber(),
+                        self::scoreOperator()->columnSpanFull(),
                     ]),
                     self::description()->columnSpanFull(),
                 ]),

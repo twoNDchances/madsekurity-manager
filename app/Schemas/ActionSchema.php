@@ -20,7 +20,7 @@ class ActionSchema
             'request' => 'Send an HTTP request.',
             'report'  => 'Send report information to Manager.',
             'suspect' => 'Increase the severity score for the HTTP lifecycle.',
-            'setter'  => 'Set virtual variables for the HTTP lifecycle.',
+            'share'   => 'Set virtual variables for the HTTP lifecycle.',
             'header'  => 'Set or unset headers.',
             'body'    => 'Set or unset body.',
             'score'   => 'Modify the total score for evaluate.',
@@ -32,7 +32,7 @@ class ActionSchema
             'request' => 'orange',
             'report'  => 'primary',
             'suspect' => 'purple',
-            'setter'  => 'pink',
+            'share'   => 'pink',
             'header'  => 'teal',
             'body'    => 'cyan',
             'score'   => 'rose',
@@ -44,7 +44,7 @@ class ActionSchema
             'request' => 'Request',
             'report'  => 'Report',
             'suspect' => 'Suspect',
-            'setter'  => 'Setter',
+            'share'   => 'Share',
             'header'  => 'Header',
             'body'    => 'Body',
             'score'   => 'Score',
@@ -65,7 +65,17 @@ class ActionSchema
     }
 
     public static $directives = [
-        'headers' => [
+        'share' => [
+            'colors' => [
+                'set'   => 'info',
+                'unset' => 'danger',
+            ],
+            'options' => [
+                'set'   => 'Set',
+                'unset' => 'Unset',
+            ],
+        ],
+        'header' => [
             'colors' => [
                 'set'   => 'info',
                 'unset' => 'danger',
@@ -94,6 +104,47 @@ class ActionSchema
                 'hard'     => 'Hard',
                 'operator' => 'Operator',
             ],
+        ],
+    ];
+
+    public static $contentTypes = [
+        'colors' => [
+            'html' => 'orange',
+            'json' => 'warning',
+            'yaml' => 'danger',
+            'xml'  => 'success',
+        ],
+        'options' => [
+            'html' => 'HTML',
+            'json' => 'JSON',
+            'yaml' => 'YAML',
+            'xml'  => 'XML',
+        ],
+    ];
+
+    public static $searchTypes = [
+        'colors' => [
+            'equal'  => 'rose',
+            'regexp' => 'primary',
+        ],
+        'options' => [
+            'equal'  => 'Equal',
+            'regexp' => 'RegExp',
+        ],
+    ];
+
+    public static $operators = [
+        'colors' => [
+            '+' => 'info',
+            '-' => 'danger',
+            '*' => 'pink',
+            '/' => 'purple',
+        ],
+        'options' => [
+            '+' => 'Addition (+)',
+            '-' => 'Subtraction (-)',
+            '*' => 'Multiplication (*)',
+            '/' => 'Division (/)',
         ],
     ];
 }

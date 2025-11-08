@@ -34,13 +34,25 @@ trait SaveActionPreparation
             'suspect' => [
                 'severity' => $data['suspect_severity'],
             ],
-            'setter' => [
-                'variables' => $data['setter_variables'],
+            'share' => [
+                'directive'             => $data['share_directive'],
+                'keys_from_wordlist_id' => isset($data['wordlist_id']) ? true : false,
+                'variables'             => isset($data['share_variables']) ? $data['share_variables'] : null,
             ],
             'header' => [
-                'directive'                => $data['header_directive'],
-                'headers_from_wordlist_id' => $data['wordlist_id'] ? true : false,
-                'modifications'            => isset($data['header_modifications']) ? $data['header_modifications'] : null,
+                'directive'             => $data['header_directive'],
+                'keys_from_wordlist_id' => isset($data['wordlist_id']) ? true : false,
+                'sets'                  => isset($data['header_sets']) ? $data['header_sets'] : null,
+            ],
+            'body' => [
+                'directive' => $data['body_directive'],
+                'sets'      => isset($data['body_sets']) ? $data['body_sets'] : null,
+                'unsets'    => isset($data['body_unsets']) ? $data['body_unsets'] : null,
+            ],
+            'score' => [
+                'directive' => $data['score_directive'],
+                'number'    => $data['score_number'],
+                'operator'  => isset($data['score_operator']) ? $data['score_operator'] : null,
             ],
             default => null,
         };

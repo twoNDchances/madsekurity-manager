@@ -171,7 +171,7 @@ trait ActionForm
         $condition = fn ($get) => $get('type') == 'request';
         return self::contentId($create)
         ->relationship('content', 'name', fn ($query) => $query->where('type', 'json'))
-        ->helperText('Body of request, only supports API body.')
+        ->helperText('Body of request, only supports JSON body.')
         ->disabled(fn ($get) => !$condition($get))
         ->visible($condition);
     }
@@ -196,11 +196,23 @@ trait ActionForm
         ->default('notice');
     }
 
-    public static function setterVariables()
+    public static function shareDirective()
     {
-        $condition = fn ($get) => $get('type') == 'setter';
+        $condition = fn ($get) => $get('type') == 'share';
+        return self::toggleButtons('share_directive', colorsAndOptions: ActionSchema::$directives['share'])
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('Set or unset variables.')
+        ->required($condition)
+        ->visible($condition)
+        ->default('set')
+        ->reactive();
+    }
+
+    public static function shareVariables()
+    {
+        $condition = fn ($get) => $get('type') == 'share' && $get('share_directive') == 'set';
         return self::repeater(
-            'setter_variables',
+            'share_variables',
             'Variables',
             'key',
             [
@@ -208,6 +220,7 @@ trait ActionForm
                 ->columnSpan(1)
                 ->schema([
                     self::textInput('key', placeholder: 'Action Getter Key')
+                    ->alphaDash()
                     ->required(),
 
                     self::toggleButtons('datatype', colorsAndOptions: ActionSchema::datatype())
@@ -225,7 +238,8 @@ trait ActionForm
                 ->disabled(fn ($get) => $get('datatype') != 'number')
                 ->visible(fn ($get) => $get('datatype') == 'number')
                 ->required(fn ($get) => $get('datatype') == 'number')
-                ->integer(),
+                ->integer()
+                ->numeric(),
             ],
         )
         ->disabled(fn ($get) => !$condition($get))
@@ -234,10 +248,19 @@ trait ActionForm
         ->visible($condition);
     }
 
+    public static function shareKeysFromWordlistId($create = true)
+    {
+        $condition = fn ($get) => $get('type') == 'share' && $get('share_directive') == 'unset';
+        return self::wordlistId($create)
+        ->helperText('Wordlist containing the key names will be deleted.')
+        ->disabled(fn ($get) => !$condition($get))
+        ->visible($condition);
+    }
+
     public static function headerDirective()
     {
         $condition = fn ($get) => $get('type') == 'header';
-        return self::toggleButtons('header_directive', colorsAndOptions: ActionSchema::$directives['headers'])
+        return self::toggleButtons('header_directive', colorsAndOptions: ActionSchema::$directives['header'])
         ->disabled(fn ($get) => !$condition($get))
         ->helperText('Set or unset headers.')
         ->required($condition)
@@ -246,15 +269,16 @@ trait ActionForm
         ->reactive();
     }
 
-    public static function headerModifications()
+    public static function headerSets()
     {
         $condition = fn ($get) => $get('type') == 'header' && $get('header_directive') == 'set';
         return self::repeater(
-            'header_modifications',
-            'Modification',
+            'header_sets',
+            'Sets',
             'key',
             [
                 self::textInput('key', placeholder: 'Action Header Key')
+                ->alphaDash()
                 ->required(),
 
                 self::textArea('value', placeholder: 'Action Header Value')
@@ -267,13 +291,146 @@ trait ActionForm
         ->visible($condition);
     }
 
-    public static function headerHeadersFromWordlistId($create = true)
+    public static function headerKeysFromWordlistId($create = true)
     {
         $condition = fn ($get) => $get('type') == 'header' && $get('header_directive') == 'unset';
         return self::wordlistId($create)
         ->helperText('Wordlist containing the key names will be deleted.')
         ->disabled(fn ($get) => !$condition($get))
         ->visible($condition);
+    }
+
+    public static function bodyDirective()
+    {
+        $condition = fn ($get) => $get('type') == 'body';
+        return self::toggleButtons('body_directive', colorsAndOptions: ActionSchema::$directives['body'])
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('Set or unset body.')
+        ->required($condition)
+        ->visible($condition)
+        ->default('set')
+        ->reactive();
+    }
+
+    public static function bodySets()
+    {
+        $condition = fn ($get) => $get('type') == 'body' && $get('body_directive') == 'set';
+        return self::repeater(
+            'body_sets',
+            'Sets',
+            'key',
+            [
+                self::toggleButtons('content_type', 'Content-Type', ActionSchema::$contentTypes)
+                ->afterStateUpdated(fn ($get, $set) => match ($get('content_type'))
+                {
+                    'html' => $set('value_type', 'text/html'),
+                    'json' => $set('value_type', 'application/json'),
+                    'yaml' => $set('value_type', 'application/yaml'),
+                    'xml'  => $set('value_type', 'application/xml'),
+                })
+                ->default('json')
+                ->columnSpan(2)
+                ->reactive()
+                ->required(),
+
+                self::toggleButtons('search_type', 'Search Type', ActionSchema::$searchTypes)
+                ->default('equal')
+                ->columnSpan(2)
+                ->required(),
+
+                self::textInput('value_type', 'Value Type', 'Action Body Value Type')
+                ->default('application/json')
+                ->columnSpan(2)
+                ->required(),
+
+                self::textInput('key', placeholder: 'Action Body Key')
+                ->columnSpan(3)
+                ->required(),
+
+                self::textArea('value', placeholder: 'Action Body Value')
+                ->columnSpan(3)
+                ->required(),
+            ],
+        )
+        ->helperText('Modify multiple body components for an HTTP lifecycle.')
+        ->disabled(fn ($get) => !$condition($get))
+        ->required($condition)
+        ->visible($condition)
+        ->columns(6);
+    }
+
+    public static function bodyUnsets()
+    {
+        $condition = fn ($get) => $get('type') == 'body' && $get('body_directive') == 'unset';
+        return self::repeater(
+            'body_unsets',
+            'Unsets',
+            'key',
+            [
+                self::toggleButtons('content_type', 'Content-Type', ActionSchema::$contentTypes)
+                ->afterStateUpdated(fn ($get, $set) => match ($get('content_type'))
+                {
+                    'html' => $set('value_type', 'text/html'),
+                    'json' => $set('value_type', 'application/json'),
+                    'yaml' => $set('value_type', 'application/yaml'),
+                    'xml'  => $set('value_type', 'application/xml'),
+                })
+                ->default('json')
+                ->reactive()
+                ->required(),
+
+                self::toggleButtons('search_type', 'Search Type', ActionSchema::$searchTypes)
+                ->default('equal')
+                ->required(),
+
+                self::textInput('value_type', 'Value Type', 'Action Body Value Type')
+                ->default('application/json')
+                ->required(),
+
+                self::textInput('key', placeholder: 'Action Body Key')
+                ->required(),
+            ],
+        )
+        ->helperText('Remove multiple body components by key names for an HTTP lifecycle.')
+        ->disabled(fn ($get) => !$condition($get))
+        ->required($condition)
+        ->visible($condition)
+        ->columns(4);
+    }
+
+    public static function scoreDirective()
+    {
+        $condition = fn ($get) => $get('type') == 'score';
+        return self::toggleButtons('score_directive', 'Directive', ActionSchema::$directives['score'])
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('Hard change or use operator for modification total score.')
+        ->required($condition)
+        ->visible($condition)
+        ->default('hard')
+        ->reactive();
+    }
+
+    public static function scoreNumber()
+    {
+        $condition = fn ($get) => $get('type') == 'score';
+        return self::textInput('score_number', 'Score', 'Action Score Number')
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('Score number will be used.')
+        ->required($condition)
+        ->visible($condition)
+        ->integer()
+        ->numeric();
+    }
+
+    public static function scoreOperator()
+    {
+        $condition = fn ($get) => $get('type') == 'score' && $get('score_directive') == 'operator';
+        return self::toggleButtons('score_operator', 'Operator', ActionSchema::$operators)
+        ->helperText('Use the operator to increase/decrease the total score by the current total score.')
+        ->disabled(fn ($get) => !$condition($get))
+        ->required($condition)
+        ->visible($condition)
+        ->default('+');
     }
 
     public static function description()

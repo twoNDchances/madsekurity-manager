@@ -38,12 +38,23 @@ trait EditActionPreparation
             case 'suspect':
                 $data['suspect_severity'] = $configration['severity'];
                 break;
-            case 'setter':
-                $data['setter_variables'] = $configration['variables'];
+            case 'share':
+                $data['share_directive'] = $configration['directive'];
+                $data['share_variables'] = $configration['variables'];
                 break;
             case 'header':
-                $data['header_directive']     = $configration['directive'];
-                $data['header_modifications'] = $configration['modifications'];
+                $data['header_directive'] = $configration['directive'];
+                $data['header_sets']      = $configration['sets'];
+                break;
+            case 'body':
+                $data['body_directive'] = $configration['directive'];
+                $data['body_sets']      = $configration['sets'];
+                $data['body_unsets']    = $configration['unsets'];
+                break;
+            case 'score':
+                $data['score_directive'] = $configration['directive'];
+                $data['score_number']    = $configration['number'];
+                $data['score_operator']  = $configration['operator'];
                 break;
             default:
                 break;

@@ -27,9 +27,9 @@ trait BeforeObserver
         };
         $action->wordlist_id = match ($action->type)
         {
-            'header',
-            'body'    => $action->wordlist_id,
-            default   => null,
+            'share',
+            'header' => $action->wordlist_id,
+            default  => null,
         };
     }
 
