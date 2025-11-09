@@ -29,6 +29,7 @@ trait TargetForm
         return self::toggleButtons('type')
         ->options(fn ($get) => TargetSchema::$typesOfPhases[(int) $get('phase')]['options'])
         ->colors(fn ($get) => TargetSchema::$typesOfPhases[(int) $get('phase')]['colors'])
+        ->afterStateUpdated(fn ($set) => $set('context_id', null))
         ->default('getter')
         ->reactive()
         ->required();

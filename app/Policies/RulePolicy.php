@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Target;
+use App\Models\Rule;
 use App\Models\User;
 use App\Services\IdentificationService;
 
-class TargetPolicy
+class RulePolicy
 {
     private function getResource(User $user, string $action)
     {
-        return IdentificationService::can($user, 'target', $action);
+        return IdentificationService::can($user, 'rule', $action);
     }
 
     /**
@@ -32,7 +32,7 @@ class TargetPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Target $target): bool
+    public function view(User $user, Rule $rule): bool
     {
         return $this->getResource($user, 'view');
     }
@@ -48,12 +48,8 @@ class TargetPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Target $target): bool
+    public function update(User $user, Rule $rule): bool
     {
-        if ($target->hasRules()->exists())
-        {
-            return false;
-        }
         return $this->getResource($user, 'update');
     }
 
@@ -68,19 +64,15 @@ class TargetPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Target $target): bool
+    public function delete(User $user, Rule $rule): bool
     {
-        if ($target->hasRules()->exists())
-        {
-            return false;
-        }
         return $this->getResource($user, 'delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Target $target): bool
+    public function restore(User $user, Rule $rule): bool
     {
         return false;
     }
@@ -88,7 +80,7 @@ class TargetPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Target $target): bool
+    public function forceDelete(User $user, Rule $rule): bool
     {
         return false;
     }

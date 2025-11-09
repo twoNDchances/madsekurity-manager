@@ -83,4 +83,9 @@ class Target extends Model
     {
         return $this->belongsTo(Context::class, 'context_id');
     }
+
+    public function hasRules()
+    {
+        return $this->hasMany(Rule::class, 'target_id');
+    }
 }

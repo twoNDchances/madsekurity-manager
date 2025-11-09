@@ -17,6 +17,7 @@ class ActionsTable
             self::type(),
             self::contentId(),
             self::wordlistId(),
+            self::rules(),
             self::labels(),
             self::owner(),
             self::createdAt(),

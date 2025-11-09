@@ -30,7 +30,10 @@ class EnginesTable
             self::actionGroup(),
         ])
         ->toolbarActions([
-            self::bulkActionGroup(),
+            self::bulkActionGroup(
+                false,
+                [self::bulkDeleteAction()]
+            ),
         ]);
     }
 }

@@ -16,7 +16,7 @@ class ActionForm
         ->components(self::main());
     }
 
-    public static function main($content = true, $wordlist = true)
+    public static function main($content = true, $wordlist = true, $rule = true)
     {
         return [
             Components\Grid::make(3)
@@ -82,7 +82,7 @@ class ActionForm
                 ->schema([
                     Components\Section::make('Action Rules')
                     ->schema([
-                        //
+                        self::rules($rule),
                     ]),
 
                     Components\Section::make('Action Labels')

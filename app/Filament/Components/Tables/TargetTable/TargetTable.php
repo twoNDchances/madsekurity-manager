@@ -52,4 +52,9 @@ trait TargetTable
     {
         return self::relationshipColumn('engines.name', 'Engines');
     }
+
+    public static function rules()
+    {
+        return self::relationshipColumn('hasRules.name', 'Rules');
+    }
 }

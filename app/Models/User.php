@@ -167,4 +167,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Content::class, 'user_id');
     }
+
+    public function hasRules()
+    {
+        return $this->hasMany(Rule::class, 'user_id');
+    }
 }

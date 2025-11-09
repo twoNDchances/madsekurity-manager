@@ -2,6 +2,7 @@
 
 namespace App\Filament\Components\Forms\ActionForm;
 
+use App\Filament\Clusters\Initialization\Resources\Rules\Schemas\RuleForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Contents\Schemas\ContentForm;
 use App\Filament\Resources\Wordlists\Schemas\WordlistForm;
@@ -38,7 +39,7 @@ trait ActionForm
         return IdentificationService::use(
             self::select('content_id', 'Content')
             ->relationship('content', 'name'),
-            ContentForm::main(),
+            fn () => ContentForm::main(),
             'content',
             'modal',
             $create,
@@ -50,7 +51,7 @@ trait ActionForm
         return IdentificationService::use(
             self::select('wordlist_id', 'Wordlist')
             ->relationship('wordlist', 'name'),
-            WordlistForm::main(),
+            fn () => WordlistForm::main(),
             'wordlist',
             'modal',
             $create,
@@ -436,5 +437,19 @@ trait ActionForm
     public static function description()
     {
         return self::textArea('description', placeholder: 'Some description about this Action...');
+    }
+
+    public static function rules($create = true)
+    {
+        return IdentificationService::use(
+            self::select('rules')
+            ->helperText('Select multiple Rules for Action Definition.')
+            ->relationship('rules', 'name')
+            ->multiple(),
+            fn () => self::openRuleForm(),
+            'rule',
+            'open',
+            $create,
+        );
     }
 }

@@ -31,4 +31,9 @@ trait ActionTable
     {
         return self::relationshipColumn('wordlist.name', 'Wordlist');
     }
+
+    public static function rules()
+    {
+        return self::relationshipColumn('rules.name', 'Rules');
+    }
 }

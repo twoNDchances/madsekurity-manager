@@ -6,6 +6,7 @@ use App\Filament\Clusters\Initialization\InitializationCluster;
 use App\Filament\Clusters\Initialization\Resources\Actions\Pages\CreateAction;
 use App\Filament\Clusters\Initialization\Resources\Actions\Pages\EditAction;
 use App\Filament\Clusters\Initialization\Resources\Actions\Pages\ListActions;
+use App\Filament\Clusters\Initialization\Resources\Actions\RelationManagers\RulesRelationManager;
 use App\Filament\Clusters\Initialization\Resources\Actions\Schemas\ActionForm;
 use App\Filament\Clusters\Initialization\Resources\Actions\Tables\ActionsTable;
 use App\Models\Action;
@@ -40,7 +41,7 @@ class ActionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RulesRelationManager::class,
         ];
     }
 

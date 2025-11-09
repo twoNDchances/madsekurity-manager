@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Clusters\Positions\Resources\Targets\Tables;
+namespace App\Filament\Clusters\Initialization\Resources\Rules\Tables;
 
-use App\Filament\Components\Tables\TargetTable\TargetTable;
+use App\Filament\Components\Tables\RuleTable\RuleTable;
 use Filament\Tables\Table;
 
-class TargetsTable
+class RulesTable
 {
-    use TargetTable;
+    use RuleTable;
 
     public static function configure(Table $table): Table
     {
@@ -15,12 +15,10 @@ class TargetsTable
         ->columns([
             self::name(),
             self::phase(),
-            self::type(),
-            self::contextId(),
-            self::datatype(),
+            self::targetId(),
+            self::comparator(),
             self::wordlistId(),
-            self::engines(),
-            self::rules(),
+            self::actions(),
             self::labels(),
             self::owner(),
             self::createdAt(),
@@ -33,10 +31,7 @@ class TargetsTable
             self::actionGroup(),
         ])
         ->toolbarActions([
-            self::bulkActionGroup(
-                false,
-                [self::bulkDeleteAction()]
-            ),
+            self::bulkActionGroup(),
         ]);
     }
 }

@@ -50,6 +50,10 @@ class EnginePolicy
      */
     public function update(User $user, Engine $engine): bool
     {
+        if ($engine->targets()->exists())
+        {
+            return false;
+        }
         return $this->getResource($user, 'update');
     }
 
@@ -66,6 +70,10 @@ class EnginePolicy
      */
     public function delete(User $user, Engine $engine): bool
     {
+        if ($engine->targets()->exists())
+        {
+            return false;
+        }
         return $this->getResource($user, 'delete');
     }
 

@@ -72,6 +72,7 @@ class {$name}Schema
 {
     //
 }
+
 PHP;
                 break;
             default:

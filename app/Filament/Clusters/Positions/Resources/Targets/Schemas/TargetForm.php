@@ -5,7 +5,6 @@ namespace App\Filament\Clusters\Positions\Resources\Targets\Schemas;
 use App\Filament\Components\Forms\TargetForm\TargetForm as Form;
 use Filament\Schemas\Components;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 
 class TargetForm
 {
@@ -25,7 +24,6 @@ class TargetForm
             ->schema([
                 Components\Wizard::make([
                     Components\Wizard\Step::make('Target Preparation')
-                    ->completedIcon(fn () => Heroicon::OutlinedCheck)
                     ->schema([
                         self::phase(),
 

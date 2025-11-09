@@ -92,4 +92,9 @@ class Label extends Model
     {
         return $this->morphedByMany(Content::class, 'labellable');
     }
+
+    public function rules()
+    {
+        return $this->morphedByMany(Rule::class, 'labellable');
+    }
 }

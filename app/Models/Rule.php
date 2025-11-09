@@ -2,20 +2,22 @@
 
 namespace App\Models;
 
-use App\Observers\ActionObservers\ActionObserver;
+use App\Observers\RuleObservers\RuleObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
-#[ObservedBy(ActionObserver::class)]
-class Action extends Model
+#[ObservedBy(RuleObserver::class)]
+class Rule extends Model
 {
     protected $fillable = [
         'name',
-        'type',
+        'phase',
+        'target_id',
+        'comparator',
+        'is_inverse',
         'configuration',
-        'description',
-        'content_id',
         'wordlist_id',
+        'description',
         'user_id',
     ];
 
@@ -28,12 +30,15 @@ class Action extends Model
         return [
             'id'            => 'integer',
             'name'          => 'string',
-            'type'          => 'string',
+            'target_id'     => 'integer',
+            'comparator'    => 'string',
+            'is_inverse'    => 'boolean',
             'configuration' => 'array',
-            'description'   => 'string',
-            'content_id'    => 'integer',
             'wordlist_id'   => 'integer',
+            'description'   => 'string',
             'user_id'       => 'integer',
+            'created_at'    => 'datetime',
+            'updated_at'    => 'datetime',
         ];
     }
 
@@ -52,19 +57,19 @@ class Action extends Model
         return $this->morphMany(Behavior::class, 'resource');
     }
 
-    public function content()
-    {
-        return $this->belongsTo(Content::class, 'content_id');
-    }
-
     public function wordlist()
     {
         return $this->belongsTo(Wordlist::class, 'wordlist_id');
     }
 
-    public function rules()
+    public function target()
     {
-        return $this->belongsToMany(Rule::class, 'rules_actions')
+        return $this->belongsTo(Target::class, 'target_id');
+    }
+
+    public function actions()
+    {
+        return $this->belongsToMany(Action::class, 'rules_actions')
         ->withPivot('order')
         ->orderBy('order');
     }

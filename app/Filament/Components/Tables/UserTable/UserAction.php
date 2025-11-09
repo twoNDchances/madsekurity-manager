@@ -14,7 +14,7 @@ trait UserAction
     public static function deleteBulkAction()
     {
         return self::bulkAction(
-            'delete_user_bulk_action',
+            'bulk_delete_user',
             'Delete selected',
             Heroicon::OutlinedTrash,
             function ($records)

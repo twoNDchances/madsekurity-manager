@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Filament\Components\Forms\ActionForm;
+namespace App\Filament\Components\Forms\RuleForm;
 
 use App\Filament\Components\Generals\GeneralAction;
 use Filament\Support\Icons\Heroicon;
 
-trait ActionAction
+trait RuleAction
 {
     use GeneralAction;
 
-    public static function openRuleForm()
+    public static function openActionForm()
     {
         return self::action(
-            'open_rule_form',
-            'Open Rule Form',
+            'open_action_form',
+            'Open Action Form',
             fn () => Heroicon::OutlinedArrowTopRightOnSquare,
         )
-        ->url(route('filament.manager.initialization.resources.rules.create'))
+        ->url(route('filament.manager.initialization.resources.actions.create'))
         ->openUrlInNewTab();
     }
 }
