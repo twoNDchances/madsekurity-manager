@@ -2,27 +2,22 @@
 
 namespace App\Filament\Resources\Labels\RelationManagers;
 
-use App\Filament\Clusters\Initialization\Resources\Actions\Schemas\ActionForm;
-use App\Filament\Clusters\Initialization\Resources\Actions\Tables\ActionsTable;
+use App\Filament\Clusters\Initializations\Resources\Actions\ActionResource;
+use App\Filament\Clusters\Initializations\Resources\Actions\Tables\ActionsTable;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 
 class ActionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'actions';
 
-    public function form(Schema $schema): Schema
-    {
-        return ActionForm::configure($schema);
-    }
+    protected static ?string $relatedResource = ActionResource::class;
 
     public function table(Table $table): Table
     {
-        return ActionsTable::configure($table)
+        return $table
         ->headerActions(ActionsTable::relationManagerHeaderActionGroup())
         ->recordActions(ActionsTable::relationManagerRecordActionGroup())
-        ->toolbarActions(ActionsTable::relationManagerToolbarActionGroup())
-        ->recordTitleAttribute('name');
+        ->toolbarActions(ActionsTable::relationManagerToolbarActionGroup());
     }
 }

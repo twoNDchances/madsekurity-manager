@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique()->index();
+            $table->longText('value');
             $table->string('name')->unique()->index();
             $table->longText('description')->nullable();
-            $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
-            $table->timestamps();
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 trait SaveActionPreparation
 {
+    // Complex preparation
     public static function mutateFormDataBefore(array $data): array
     {
         $data['configuration'] = match ($data['type'])
@@ -53,6 +54,11 @@ trait SaveActionPreparation
                 'directive' => $data['score_directive'],
                 'number'    => $data['score_number'],
                 'operator'  => isset($data['score_operator']) ? $data['score_operator'] : null,
+            ],
+            'level' => [
+                'directive' => $data['level_directive'],
+                'number'    => $data['level_number'],
+                'operator'  => isset($data['level_operator']) ? $data['level_operator'] : null,
             ],
             default => null,
         };

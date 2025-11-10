@@ -104,18 +104,4 @@ trait EngineForm
         ->inline(false)
         ->disabled();
     }
-
-    public static function targets($create = true)
-    {
-        return IdentificationService::use(
-            self::select('targets')
-            ->helperText('Select multiple Targets for Engine Definition.')
-            ->relationship('targets', 'name')
-            ->multiple(),
-            fn() => TargetForm::main(false),
-            'target',
-            'modal',
-            $create,
-        );
-    }
 }

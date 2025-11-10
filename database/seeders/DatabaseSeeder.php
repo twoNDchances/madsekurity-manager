@@ -19,8 +19,6 @@ class DatabaseSeeder extends Seeder
             LabelSeeder::class,
             PermissionSeeder::class,
             PolicySeeder::class,
-            SettingSeeder::class,
-            VariableSeeder::class,
             ContextSeeder::class,
         ]);
     }

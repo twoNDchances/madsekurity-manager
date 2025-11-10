@@ -16,7 +16,7 @@ trait RuleAction
             'Open Action Form',
             fn () => Heroicon::OutlinedArrowTopRightOnSquare,
         )
-        ->url(route('filament.manager.initialization.resources.actions.create'))
+        ->url(route('filament.manager.initializations.resources.actions.create'))
         ->openUrlInNewTab();
     }
 }

@@ -113,11 +113,6 @@ class User extends Authenticatable
         return $this->hasMany(Permission::class, 'user_id');
     }
 
-    public function hasSettings()
-    {
-        return $this->hasMany(Setting::class, 'user_id');
-    }
-
     public function hasVariable()
     {
         return $this->hasMany(Variable::class, 'user_id');
@@ -171,5 +166,10 @@ class User extends Authenticatable
     public function hasRules()
     {
         return $this->hasMany(Rule::class, 'user_id');
+    }
+
+    public function hasGroups()
+    {
+        return $this->hasMany(Group::class, 'user_id');
     }
 }

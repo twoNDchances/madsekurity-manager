@@ -56,6 +56,11 @@ trait EditActionPreparation
                 $data['score_number']    = $configration['number'];
                 $data['score_operator']  = $configration['operator'];
                 break;
+            case 'level':
+                $data['level_directive'] = $configration['directive'];
+                $data['level_number']    = $configration['number'];
+                $data['level_operator']  = $configration['operator'];
+                break;
             default:
                 break;
         }

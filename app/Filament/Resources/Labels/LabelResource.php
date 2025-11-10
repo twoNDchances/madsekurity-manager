@@ -60,8 +60,8 @@ class LabelResource extends Resource
             UsersRelationManager::class,
             PoliciesRelationManager::class,
             PermissionsRelationManager::class,
-            VariablesRelationManager::class,
-            SettingsRelationManager::class,
+            // VariablesRelationManager::class,
+            // SettingsRelationManager::class,
         ];
     }
 

@@ -2,27 +2,22 @@
 
 namespace App\Filament\Resources\Labels\RelationManagers;
 
-use App\Filament\Clusters\Configurations\Resources\Variables\Schemas\VariableForm;
 use App\Filament\Clusters\Configurations\Resources\Variables\Tables\VariablesTable;
+use App\Filament\Clusters\Configurations\Resources\Variables\VariableResource;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 
 class VariablesRelationManager extends RelationManager
 {
     protected static string $relationship = 'variables';
 
-    public function form(Schema $schema): Schema
-    {
-        return VariableForm::configure($schema);
-    }
+    // protected static ?string $relatedResource = VariableResource::class;
 
-    public function table(Table $table): Table
-    {
-        return VariablesTable::configure($table)
-        ->headerActions(VariablesTable::relationManagerHeaderActionGroup())
-        ->recordActions(VariablesTable::relationManagerRecordActionGroup())
-        ->toolbarActions(VariablesTable::relationManagerToolbarActionGroup())
-        ->recordTitleAttribute('key');
-    }
+    // public function table(Table $table): Table
+    // {
+    //     return $table
+    //     ->headerActions(VariablesTable::relationManagerHeaderActionGroup())
+    //     ->recordActions(VariablesTable::relationManagerRecordActionGroup())
+    //     ->toolbarActions(VariablesTable::relationManagerToolbarActionGroup());
+    // }
 }

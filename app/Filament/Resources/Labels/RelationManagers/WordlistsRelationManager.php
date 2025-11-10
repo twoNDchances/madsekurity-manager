@@ -2,27 +2,22 @@
 
 namespace App\Filament\Resources\Labels\RelationManagers;
 
-use App\Filament\Resources\Wordlists\Schemas\WordlistForm;
 use App\Filament\Resources\Wordlists\Tables\WordlistsTable;
+use App\Filament\Resources\Wordlists\WordlistResource;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 
 class WordlistsRelationManager extends RelationManager
 {
     protected static string $relationship = 'wordlists';
 
-    public function form(Schema $schema): Schema
-    {
-        return WordlistForm::configure($schema);
-    }
+    protected static ?string $relatedResource = WordlistResource::class;
 
     public function table(Table $table): Table
     {
-        return WordlistsTable::configure($table)
+        return $table
         ->headerActions(WordlistsTable::relationManagerHeaderActionGroup())
         ->recordActions(WordlistsTable::relationManagerRecordActionGroup())
-        ->toolbarActions(WordlistsTable::relationManagerToolbarActionGroup())
-        ->recordTitleAttribute('name');
+        ->toolbarActions(WordlistsTable::relationManagerToolbarActionGroup());
     }
 }

@@ -6,6 +6,7 @@ use App\Schemas\RuleSchema;
 
 trait SaveRulePreparation
 {
+    // Complex preparation
     public static function mutateFormDataBefore(array $data): array
     {
         foreach (array_keys(RuleSchema::$conditions) as $name)

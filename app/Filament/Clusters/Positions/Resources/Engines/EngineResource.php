@@ -6,7 +6,6 @@ use App\Filament\Clusters\Positions\PositionsCluster;
 use App\Filament\Clusters\Positions\Resources\Engines\Pages\CreateEngine;
 use App\Filament\Clusters\Positions\Resources\Engines\Pages\EditEngine;
 use App\Filament\Clusters\Positions\Resources\Engines\Pages\ListEngines;
-use App\Filament\Clusters\Positions\Resources\Engines\RelationManagers\TargetsRelationManager;
 use App\Filament\Clusters\Positions\Resources\Engines\Schemas\EngineForm;
 use App\Filament\Clusters\Positions\Resources\Engines\Tables\EnginesTable;
 use App\Models\Engine;
@@ -41,7 +40,7 @@ class EngineResource extends Resource
     public static function getRelations(): array
     {
         return [
-            TargetsRelationManager::class,
+            //
         ];
     }
 

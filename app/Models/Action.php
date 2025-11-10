@@ -64,8 +64,6 @@ class Action extends Model
 
     public function rules()
     {
-        return $this->belongsToMany(Rule::class, 'rules_actions')
-        ->withPivot('order')
-        ->orderBy('order');
+        return $this->belongsToMany(Rule::class, 'rules_actions');
     }
 }

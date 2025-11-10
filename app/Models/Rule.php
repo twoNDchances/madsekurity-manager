@@ -73,4 +73,9 @@ class Rule extends Model
         ->withPivot('order')
         ->orderBy('order');
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'groups_rules');
+    }
 }

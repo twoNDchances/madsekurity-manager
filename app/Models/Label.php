@@ -53,11 +53,6 @@ class Label extends Model
         return $this->morphedByMany(Permission::class, 'labellable');
     }
 
-    public function settings()
-    {
-        return $this->morphedByMany(Setting::class, 'labellable');
-    }
-
     public function variables()
     {
         return $this->morphedByMany(Variable::class, 'labellable');
@@ -96,5 +91,10 @@ class Label extends Model
     public function rules()
     {
         return $this->morphedByMany(Rule::class, 'labellable');
+    }
+
+    public function groups()
+    {
+        return $this->morphedByMany(Group::class, 'labellable');
     }
 }

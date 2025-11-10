@@ -2,7 +2,7 @@
 
 namespace App\Filament\Components\Forms\ContentForm;
 
-use App\Filament\Clusters\Initialization\Resources\Actions\Schemas\ActionForm;
+use App\Filament\Clusters\Initializations\Resources\Actions\Schemas\ActionForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Schemas\ContentSchema;
 use App\Services\IdentificationService;

@@ -4,7 +4,6 @@ namespace App\Filament\Components\Tables\RuleTable;
 
 use App\Filament\Components\Generals\GeneralTable;
 use App\Schemas\RuleSchema;
-use Illuminate\Database\Eloquent\Casts\Json;
 
 trait RuleTable
 {
@@ -42,5 +41,10 @@ trait RuleTable
     public static function actions()
     {
         return self::relationshipColumn('actions.name', 'Actions');
+    }
+
+    public static function groups()
+    {
+        return self::relationshipColumn('groups.name', 'Groups');
     }
 }

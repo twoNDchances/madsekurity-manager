@@ -2,7 +2,7 @@
 
 namespace App\Filament\Components\Forms\ActionForm;
 
-use App\Filament\Clusters\Initialization\Resources\Rules\Schemas\RuleForm;
+use App\Filament\Clusters\Initializations\Resources\Rules\Schemas\RuleForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Filament\Resources\Contents\Schemas\ContentForm;
 use App\Filament\Resources\Wordlists\Schemas\WordlistForm;
@@ -428,6 +428,41 @@ trait ActionForm
         $condition = fn ($get) => $get('type') == 'score' && $get('score_directive') == 'operator';
         return self::toggleButtons('score_operator', 'Operator', ActionSchema::$operators)
         ->helperText('Use the operator to increase/decrease the total score by the current total score.')
+        ->disabled(fn ($get) => !$condition($get))
+        ->required($condition)
+        ->visible($condition)
+        ->default('+');
+    }
+
+    public static function levelDirective()
+    {
+        $condition = fn ($get) => $get('type') == 'level';
+        return self::toggleButtons('level_directive', 'Directive', ActionSchema::$directives['level'])
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('Hard change or use operator for modification level.')
+        ->required($condition)
+        ->visible($condition)
+        ->default('hard')
+        ->reactive();
+    }
+
+    public static function levelNumber()
+    {
+        $condition = fn ($get) => $get('type') == 'level';
+        return self::textInput('level_number', 'Level', 'Action Level Number')
+        ->disabled(fn ($get) => !$condition($get))
+        ->helperText('The level will be used.')
+        ->required($condition)
+        ->visible($condition)
+        ->integer()
+        ->numeric();
+    }
+
+    public static function levelOperator()
+    {
+        $condition = fn ($get) => $get('type') == 'level' && $get('level_directive') == 'operator';
+        return self::toggleButtons('level_operator', 'Operator', ActionSchema::$operators)
+        ->helperText('Use the operator to increase/decrease the level by the current level.')
         ->disabled(fn ($get) => !$condition($get))
         ->required($condition)
         ->visible($condition)

@@ -50,6 +50,10 @@ class RulePolicy
      */
     public function update(User $user, Rule $rule): bool
     {
+        if ($rule->groups()->exists())
+        {
+            return false;
+        }
         return $this->getResource($user, 'update');
     }
 
@@ -66,6 +70,10 @@ class RulePolicy
      */
     public function delete(User $user, Rule $rule): bool
     {
+        if ($rule->groups()->exists())
+        {
+            return false;
+        }
         return $this->getResource($user, 'delete');
     }
 

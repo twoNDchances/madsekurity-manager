@@ -2,27 +2,22 @@
 
 namespace App\Filament\Resources\Policies\RelationManagers;
 
-use App\Filament\Resources\Permissions\Schemas\PermissionForm;
+use App\Filament\Resources\Permissions\PermissionResource;
 use App\Filament\Resources\Permissions\Tables\PermissionsTable;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 
 class PermissionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'permissions';
 
-    public function form(Schema $schema): Schema
-    {
-        return PermissionForm::configure($schema);
-    }
+    protected static ?string $relatedResource = PermissionResource::class;
 
     public function table(Table $table): Table
     {
-        return PermissionsTable::configure($table)
+        return $table
         ->headerActions(PermissionsTable::relationManagerHeaderActionGroup())
         ->recordActions(PermissionsTable::relationManagerRecordActionGroup())
-        ->toolbarActions(PermissionsTable::relationManagerToolbarActionGroup())
-        ->recordTitleAttribute('name');
+        ->toolbarActions(PermissionsTable::relationManagerToolbarActionGroup());
     }
 }

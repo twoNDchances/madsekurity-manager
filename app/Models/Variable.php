@@ -30,7 +30,6 @@ class Variable extends Model
             'value'       => 'string',
             'is_secret'   => 'boolean',
             'description' => 'string',
-            'setting_id'  => 'integer',
             'user_id'     => 'integer',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
@@ -40,11 +39,6 @@ class Variable extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function setting()
-    {
-        return $this->belongsTo(Setting::class, 'setting_id');
     }
 
     public function labels()

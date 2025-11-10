@@ -17,7 +17,6 @@ return new class extends Migration
             $table->longText('value');
             $table->boolean('is_secret')->default(false);
             $table->longText('description')->nullable();
-            $table->foreignId('setting_id')->nullable()->index()->constrained('settings')->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->index()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });

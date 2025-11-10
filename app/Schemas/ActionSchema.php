@@ -24,6 +24,7 @@ class ActionSchema
             'header'  => 'Set or unset headers.',
             'body'    => 'Set or unset body.',
             'score'   => 'Modify the total score for evaluate.',
+            'level'   => 'Change the level of the group.',
         ],
         'colors' => [
             'allow'   => 'success',
@@ -36,6 +37,7 @@ class ActionSchema
             'header'  => 'teal',
             'body'    => 'cyan',
             'score'   => 'rose',
+            'level'   => 'teal',
         ],
         'options' => [
             'allow'   => 'Allow',
@@ -48,6 +50,7 @@ class ActionSchema
             'header'  => 'Header',
             'body'    => 'Body',
             'score'   => 'Score',
+            'level'   => 'Level',
         ],
     ];
 
@@ -96,6 +99,16 @@ class ActionSchema
             ],
         ],
         'score' => [
+            'colors' => [
+                'hard'     => 'pink',
+                'operator' => 'purple',
+            ],
+            'options' => [
+                'hard'     => 'Hard',
+                'operator' => 'Operator',
+            ],
+        ],
+        'level' => [
             'colors' => [
                 'hard'     => 'pink',
                 'operator' => 'purple',

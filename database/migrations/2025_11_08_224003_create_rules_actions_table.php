@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rules_actions', function (Blueprint $table) {
-            $table->unsignedBigInteger('order')->nullable();
+            $table->unsignedBigInteger('order', true);
             $table->foreignId('rule_id')->constrained('rules')->cascadeOnDelete();
             $table->foreignId('action_id')->constrained('actions')->cascadeOnDelete();
         });
