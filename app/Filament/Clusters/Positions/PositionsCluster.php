@@ -14,7 +14,7 @@ class PositionsCluster extends Cluster
 
     protected static string|UnitEnum|null $navigationGroup = 'Managements';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 3;
 
     protected static ?SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 }

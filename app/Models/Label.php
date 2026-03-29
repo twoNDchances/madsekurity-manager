@@ -97,4 +97,9 @@ class Label extends Model
     {
         return $this->morphedByMany(Group::class, 'labellable');
     }
+
+    public function defenders()
+    {
+        return $this->morphedByMany(Defender::class, 'labellable');
+    }
 }

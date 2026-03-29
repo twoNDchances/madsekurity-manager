@@ -32,4 +32,9 @@ trait GroupTable
     {
         return self::relationshipColumn('rules.name', 'Rules');
     }
+
+    public static function defenders()
+    {
+        return self::relationshipColumn('defenders.name', 'Defenders');
+    }
 }

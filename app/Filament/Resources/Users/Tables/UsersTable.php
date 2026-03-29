@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use App\Filament\Components\Tables\UserTable\UserTable;
+use App\Models\User;
+use App\Services\IdentificationService;
 use Filament\Tables\Table;
 
 class UsersTable
@@ -22,6 +24,7 @@ class UsersTable
             self::createdAt(),
             self::updatedAt(),
         ])
+        ->query(fn () => IdentificationService::filterImportant(User::class))
         ->filters([
             //
         ])

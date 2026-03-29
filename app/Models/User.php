@@ -172,4 +172,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Group::class, 'user_id');
     }
+
+    public function hasDefenders()
+    {
+        return $this->hasMany(Defender::class, 'user_id');
+    }
 }

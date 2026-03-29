@@ -56,4 +56,9 @@ class Group extends Model
         ->withPivot('order')
         ->orderBy('order');
     }
+
+    public function defenders()
+    {
+        return $this->belongsToMany(Defender::class, 'defenders_groups');
+    }
 }

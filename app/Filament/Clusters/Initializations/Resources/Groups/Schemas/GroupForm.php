@@ -16,7 +16,7 @@ class GroupForm
         ->components(self::main());
     }
 
-    public static function main($rule = true)
+    public static function main($rule = true, $defender = true)
     {
         return [
             Components\Grid::make(3)
@@ -38,6 +38,11 @@ class GroupForm
                     Components\Section::make('Group Rules')
                     ->schema([
                         self::rules($rule)
+                    ]),
+
+                    Components\Section::make('Group Defenders')
+                    ->schema([
+                        self::defenders($defender)
                     ]),
 
                     Components\Section::make('Group Labels')

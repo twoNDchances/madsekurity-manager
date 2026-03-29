@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Group;
+use App\Models\Defender;
 use App\Models\User;
 use App\Services\IdentificationService;
 
-class GroupPolicy
+class DefenderPolicy
 {
     private function getResource(User $user, string $action)
     {
-        return IdentificationService::can($user, 'group', $action);
+        return IdentificationService::can($user, 'defender', $action);
     }
 
     /**
@@ -32,7 +32,7 @@ class GroupPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Group $group): bool
+    public function view(User $user, Defender $defender): bool
     {
         return $this->getResource($user, 'view');
     }
@@ -48,7 +48,7 @@ class GroupPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Group $group): bool
+    public function update(User $user, Defender $defender): bool
     {
         return $this->getResource($user, 'update');
     }
@@ -64,47 +64,39 @@ class GroupPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Group $group): bool
+    public function delete(User $user, Defender $defender): bool
     {
         return $this->getResource($user, 'delete');
     }
 
     /**
-     * Determine whether the user can apply any model.
+     * Determine whether the user can health the model.
      */
-    public function applyAny(User $user): bool
+    public function health(User $user, Defender $defender): bool
     {
-        return $this->getResource($user, 'applyAny');
+        return $this->getResource($user, 'health');
     }
 
     /**
-     * Determine whether the user can apply the model.
+     * Determine whether the user can inspect the model.
      */
-    public function apply(User $user, Group $group): bool
+    public function inspect(User $user, Defender $defender): bool
     {
-        return $this->getResource($user, 'apply');
+        return $this->getResource($user, 'inspect');
     }
 
     /**
-     * Determine whether the user can revoke any model.
+     * Determine whether the user can clearLog the model.
      */
-    public function revokeAny(User $user): bool
+    public function clearLog(User $user, Defender $defender): bool
     {
-        return $this->getResource($user, 'revokeAny');
-    }
-
-    /**
-     * Determine whether the user can revoke the model.
-     */
-    public function revoke(User $user, Group $group): bool
-    {
-        return $this->getResource($user, 'revoke');
+        return $this->getResource($user, 'clearLog');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Group $group): bool
+    public function restore(User $user, Defender $defender): bool
     {
         return false;
     }
@@ -112,7 +104,7 @@ class GroupPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Group $group): bool
+    public function forceDelete(User $user, Defender $defender): bool
     {
         return false;
     }

@@ -61,4 +61,14 @@ class IdentificationService
         }
         return $field;
     }
+
+    public static function filterImportant($model)
+    {
+        $query = $model::query();
+        if (self::isImportant())
+        {
+            return $query;
+        }
+        return $query->where('is_important', false);
+    }
 }

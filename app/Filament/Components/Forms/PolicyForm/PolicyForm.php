@@ -29,7 +29,18 @@ trait PolicyForm
         return IdentificationService::use(
             self::select('users')
             ->helperText('Select multiple Users for Policy Definition.')
-            ->relationship('users', 'email')
+            ->relationship(
+                'users',
+                'email',
+                function ($query)
+                {
+                    if (IdentificationService::isImportant())
+                    {
+                        return $query;
+                    }
+                    return $query->where('is_important', false);
+                },
+            )
             ->multiple(),
             fn() => self::openUserForm(),
             'user',

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Components\Forms\GroupForm;
 
+use App\Filament\Clusters\Implementations\Resources\Defenders\Schemas\DefenderForm;
 use App\Filament\Components\Generals\GeneralForm;
 use App\Schemas\GroupSchema;
 use App\Services\IdentificationService;
@@ -56,6 +57,31 @@ trait GroupForm
             fn () => self::openRuleForm(),
             'rule',
             'open',
+            $create,
+        );
+    }
+
+    public static function defenders($create = true)
+    {
+        return IdentificationService::use(
+            self::select('defenders')
+            ->helperText('Select multiple Defenders for Group Definition.')
+            ->relationship(
+                'defenders',
+                'name',
+                function ($query)
+                {
+                    if (IdentificationService::isImportant())
+                    {
+                        return $query;
+                    }
+                    return $query->where('is_important', false);
+                },
+            )
+            ->multiple(),
+            fn () => DefenderForm::main(false, false),
+            'defender',
+            'modal',
             $create,
         );
     }

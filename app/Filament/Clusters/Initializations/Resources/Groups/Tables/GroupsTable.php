@@ -16,6 +16,7 @@ class GroupsTable
             self::name(),
             self::level(),
             self::rules(),
+            self::defenders(),
             self::labels(),
             self::owner(),
             self::createdAt(),

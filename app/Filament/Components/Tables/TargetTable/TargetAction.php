@@ -30,10 +30,10 @@ trait TargetAction
                 }
                 if (!$count)
                 {
-                    NotificationService::notify('failure', "Deleted $count record(s)");
+                    NotificationService::perform('failure', "Deleted $count record(s)");
                     return;
                 }
-                NotificationService::notify('success', "Deleted $count record(s)");
+                NotificationService::perform('success', "Deleted $count record(s)");
             },
         )
         ->deselectRecordsAfterCompletion()

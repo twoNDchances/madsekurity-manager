@@ -56,7 +56,7 @@ trait UserForm
 
     public static function isImportant()
     {
-        $condition = fn ($livewire) => $livewire instanceof CreateRecord || IdentificationService::isImportant();
+        $condition = fn () => IdentificationService::isImportant();
         return self::toggle('is_important', 'Is Important')
         ->helperText('Full of control the system.')
         ->required($condition)

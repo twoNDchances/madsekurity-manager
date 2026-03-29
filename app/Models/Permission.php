@@ -36,13 +36,24 @@ class Permission extends Model
     }
 
     private static array $methodDescriptions = [
-        'all'       => 'Full',
-        'viewAny'   => 'List',
-        'view'      => 'View',
-        'create'    => 'Create',
-        'update'    => 'Update',
-        'deleteAny' => 'Multi-Delete',
-        'delete'    => 'Delete',
+        'all'          => 'Full',
+        'viewAny'      => 'List',
+        'view'         => 'View',
+        'create'       => 'Create',
+        'update'       => 'Update',
+        'deleteAny'    => 'Multi-Delete',
+        'delete'       => 'Delete',
+        'health'       => 'Health',
+        'inspect'      => 'Inspect',
+        'applyAny'     => 'Multi-Apply',
+        'apply'        => 'Apply',
+        'revokeAny'    => 'Multi-Revoke',
+        'revoke'       => 'Revoke',
+        'implementAny' => 'Multi-Implement',
+        'implement'    => 'Implement',
+        'suspendAny'   => 'Multi-Suspend',
+        'suspend'      => 'Suspend',
+        'clearLog'     => 'Clear-Log'
     ];
 
     private static array $exclusionList = [
